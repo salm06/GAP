@@ -142,11 +142,8 @@ export default function Home() {
                   {a.step.length} fasi · {a.durataTotaleMin} min
                 </p>
 
-                {/* Scheda di presentazione: metadati del kit */}
-                <p className="mb-2 mt-4 font-head text-[10px] font-bold uppercase tracking-[.18em] text-capisci-ink">
-                  Scheda di presentazione
-                </p>
-                <dl className="grid grid-cols-1 gap-y-2.5">
+                {/* Scheda: metadati del kit */}
+                <dl className="mt-4 grid grid-cols-1 gap-y-2.5">
                   {(
                     [
                       ["Materia", a.materia],
