@@ -145,18 +145,12 @@ export default function Home() {
 
               <div className="flex flex-1 flex-col p-5">
                 <p className="font-head text-xl font-extrabold text-ink">{a.titolo}</p>
-                <p className="mt-1 text-sm text-muted">
-                  {a.step.length} fasi · {a.durataTotaleMin} min
-                </p>
-
-                {/* Info del kit come chip con bordo colorato (senza titolo di riga) */}
-                <div className="mt-4 flex flex-wrap gap-2">
+                {/* Chip con bordo colorato: materia, classe, durata */}
+                <div className="mt-3 flex flex-wrap gap-2">
                   {[
                     a.materia,
                     a.ordineScuola,
                     `${a.durataTotaleMin} min · ${a.step.length} fasi`,
-                    a.tecnologiaRichiesta,
-                    a.competenzeTarget,
                   ]
                     .filter((v): v is string => !!v)
                     .map((value, i) => (
@@ -171,15 +165,23 @@ export default function Home() {
                     ))}
                 </div>
 
-                {/* Possibile UDA con — resta come riga con titolo */}
-                {a.possibileUdaCon && (
-                  <div className="mt-4 flex items-baseline justify-between gap-3">
-                    <span className="shrink-0 text-xs text-muted">Possibile UDA con</span>
-                    <span className="text-right text-xs font-bold text-ink">
-                      {a.possibileUdaCon}
-                    </span>
-                  </div>
-                )}
+                {/* Altre info come righe con titolo (stile "Possibile UDA con") */}
+                <dl className="mt-4 space-y-2.5">
+                  {(
+                    [
+                      ["Tecnologia richiesta", a.tecnologiaRichiesta],
+                      ["Competenze target", a.competenzeTarget],
+                      ["Possibile UDA con", a.possibileUdaCon],
+                    ] as [string, string | undefined][]
+                  )
+                    .filter(([, v]) => !!v)
+                    .map(([label, value]) => (
+                      <div key={label} className="flex items-baseline justify-between gap-3">
+                        <dt className="shrink-0 text-xs text-muted">{label}</dt>
+                        <dd className="text-right text-xs font-bold text-ink">{value}</dd>
+                      </div>
+                    ))}
+                </dl>
 
                 {/* Badge finale: adattamenti BES/DSA (se la lezione ne include) */}
                 {a.step.some((s) => s.adattamentoBes) && (
