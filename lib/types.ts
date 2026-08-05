@@ -35,7 +35,7 @@ export type Fase = "setup" | "pensa" | "fai" | "capisci";
 export type Step = {
   id: string;
   titolo: string; // etichetta breve, usata come titolo (una riga) della card
-  fase?: Fase; // fase del design thinking → colore della card (cosmetico, opzionale)
+  fase: Fase; // schema pensa-fai-capisci — OBBLIGATORIO per ogni lezione GAP (guida il colore della card)
   azione: string; // istruzione operativa dello step: paragrafo di approfondimento sotto il titolo
   cosaDico?: string; // (legacy) frase pronta da dire alla classe
   neuro?: string; // spunto di neurodidattica: perché questo step funziona

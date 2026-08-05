@@ -15,6 +15,7 @@ function step(id: string, durataMin: number, elasticita: Step["elasticita"], rec
   return {
     id,
     titolo: `Step ${id}`,
+    fase: "pensa",
     azione: "fai qualcosa",
     durataMin,
     elasticita,

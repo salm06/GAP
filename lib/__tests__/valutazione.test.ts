@@ -20,6 +20,7 @@ function attivita(): Attivita {
       {
         id: "s1",
         titolo: "S1",
+        fase: "pensa",
         azione: "a",
         durataMin: 10,
         elasticita: "essenziale",
