@@ -17,6 +17,13 @@ const COLORE_METODO: Record<string, string> = {
 const classeMetodo = (metodologia: string) =>
   COLORE_METODO[metodologia.trim().toLowerCase()] ?? "bg-accent text-[#1A1A1A]";
 
+// Chip info scheda: bordo colorato (ciclo brand), senza titolo di riga.
+const CHIP_COLORI = [
+  "border-accent-ink text-accent-ink",
+  "border-fai-ink text-fai-ink",
+  "border-capisci-ink text-capisci-ink",
+];
+
 export default function Home() {
   const [attivita, setAttivita] = useState<Attivita[]>([]);
   const [sessioni, setSessioni] = useState<Sessione[]>([]);
@@ -64,7 +71,7 @@ export default function Home() {
     <main className="mx-auto max-w-5xl px-4 py-8 sm:py-12">
       <header className="mb-10 flex items-center gap-3">
         <Logo altezza={30} />
-        <span className="rounded-full border border-panel-line bg-surface px-3 py-1 font-head text-[11px] font-bold uppercase tracking-[.16em] text-accent-ink">
+        <span className="rounded-full bg-[#1A1A1A] px-3 py-1 font-head text-[11px] font-bold uppercase tracking-[.16em] text-accent">
           Player · Kit PLUS
         </span>
       </header>
@@ -142,26 +149,37 @@ export default function Home() {
                   {a.step.length} fasi · {a.durataTotaleMin} min
                 </p>
 
-                {/* Scheda: metadati del kit */}
-                <dl className="mt-4 grid grid-cols-1 gap-y-2.5">
-                  {(
-                    [
-                      ["Materia", a.materia],
-                      ["Ordine di scuola", a.ordineScuola],
-                      ["Durata", `${a.durataTotaleMin} min · ${a.step.length} fasi`],
-                      ["Tecnologia richiesta", a.tecnologiaRichiesta],
-                      ["Competenze target", a.competenzeTarget],
-                      ["Possibile UDA con", a.possibileUdaCon],
-                    ] as [string, string | undefined][]
-                  )
-                    .filter(([, v]) => !!v)
-                    .map(([label, value]) => (
-                      <div key={label} className="flex items-baseline justify-between gap-3">
-                        <dt className="shrink-0 text-xs text-muted">{label}</dt>
-                        <dd className="text-right text-xs font-bold text-ink">{value}</dd>
-                      </div>
+                {/* Info del kit come chip con bordo colorato (senza titolo di riga) */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {[
+                    a.materia,
+                    a.ordineScuola,
+                    `${a.durataTotaleMin} min · ${a.step.length} fasi`,
+                    a.tecnologiaRichiesta,
+                    a.competenzeTarget,
+                  ]
+                    .filter((v): v is string => !!v)
+                    .map((value, i) => (
+                      <span
+                        key={i}
+                        className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                          CHIP_COLORI[i % CHIP_COLORI.length]
+                        }`}
+                      >
+                        {value}
+                      </span>
                     ))}
-                </dl>
+                </div>
+
+                {/* Possibile UDA con — resta come riga con titolo */}
+                {a.possibileUdaCon && (
+                  <div className="mt-4 flex items-baseline justify-between gap-3">
+                    <span className="shrink-0 text-xs text-muted">Possibile UDA con</span>
+                    <span className="text-right text-xs font-bold text-ink">
+                      {a.possibileUdaCon}
+                    </span>
+                  </div>
+                )}
 
                 {/* Badge finale: adattamenti BES/DSA (se la lezione ne include) */}
                 {a.step.some((s) => s.adattamentoBes) && (
