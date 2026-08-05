@@ -5,6 +5,11 @@
   "metodologia": "design thinking",
   "durataTotaleMin": 300,
   "immagine": "/hero/commissione-alla-cieca.jpg",
+  "voto": 9.2,
+  "ordineScuola": "Secondaria II grado",
+  "competenzeTarget": "Progettazione inclusiva, empatia, problem solving",
+  "tecnologiaRichiesta": "Materiali poveri, nessun account",
+  "possibileUdaCon": "Tecnologia e Arte",
   "materialiNecessari": [
     {
       "id": "m1",

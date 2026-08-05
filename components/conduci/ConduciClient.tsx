@@ -301,6 +301,19 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
                 </div>
               )}
 
+              {/* Riquadro giallo: adattamento BES/DSA di questo step */}
+              {step.adattamentoBes && (
+                <div
+                  className="mt-6 rounded-2xl border-l-4 border-accent px-4 py-3"
+                  style={{ backgroundColor: "rgba(255,199,0,0.18)" }}
+                >
+                  <span className="mb-1 flex items-center gap-2 font-head text-[10px] font-bold uppercase tracking-[.18em] text-accent-ink">
+                    <Icona nome="check" size={13} /> Adattamento BES/DSA
+                  </span>
+                  <p className="text-sm leading-relaxed text-ink">{step.adattamentoBes}</p>
+                </div>
+              )}
+
               <div className="mt-6">
                 <SupportoInline key={step.id} step={step} />
               </div>

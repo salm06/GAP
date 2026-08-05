@@ -102,7 +102,7 @@ export default function Home() {
 
       {/* Kit disponibili */}
       <h2 className="mt-10 font-head text-lg font-bold text-ink">Kit disponibili</h2>
-      <ul className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2">
         {attivita.map((a) => (
           <li key={a.id}>
             <Link
@@ -128,13 +128,50 @@ export default function Home() {
                 >
                   {a.metodologia}
                 </span>
+                {a.voto != null && (
+                  <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#1A1A1A] px-2.5 py-1 font-head text-[12px] font-black text-white shadow ring-1 ring-white/20">
+                    {a.voto.toFixed(1)}
+                    <span className="text-[10px] font-bold text-white/50">/ 10</span>
+                  </span>
+                )}
               </div>
 
               <div className="flex flex-1 flex-col p-5">
                 <p className="font-head text-xl font-extrabold text-ink">{a.titolo}</p>
-                <p className="mt-auto pt-3 text-sm text-muted">
-                  {a.materia} · {a.durataTotaleMin}′ · {a.step.length} step
+                <p className="mt-1 text-sm text-muted">
+                  {a.step.length} fasi · {a.durataTotaleMin} min
                 </p>
+
+                {/* Scheda di presentazione: metadati del kit */}
+                <p className="mb-2 mt-4 font-head text-[10px] font-bold uppercase tracking-[.18em] text-capisci-ink">
+                  Scheda di presentazione
+                </p>
+                <dl className="grid grid-cols-1 gap-y-2.5">
+                  {(
+                    [
+                      ["Materia", a.materia],
+                      ["Ordine di scuola", a.ordineScuola],
+                      ["Durata", `${a.durataTotaleMin} min · ${a.step.length} fasi`],
+                      ["Tecnologia richiesta", a.tecnologiaRichiesta],
+                      ["Competenze target", a.competenzeTarget],
+                      ["Possibile UDA con", a.possibileUdaCon],
+                    ] as [string, string | undefined][]
+                  )
+                    .filter(([, v]) => !!v)
+                    .map(([label, value]) => (
+                      <div key={label} className="flex items-baseline justify-between gap-3">
+                        <dt className="shrink-0 text-xs text-muted">{label}</dt>
+                        <dd className="text-right text-xs font-bold text-ink">{value}</dd>
+                      </div>
+                    ))}
+                </dl>
+
+                {/* Badge finale: adattamenti BES/DSA (se la lezione ne include) */}
+                {a.step.some((s) => s.adattamentoBes) && (
+                  <div className="mt-auto flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
+                    <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
+                  </div>
+                )}
               </div>
             </Link>
           </li>

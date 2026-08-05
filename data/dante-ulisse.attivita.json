@@ -5,6 +5,11 @@
   "metodologia": "digital storytelling",
   "durataTotaleMin": 100,
   "immagine": "/hero/dante-ulisse.jpg",
+  "voto": 8.7,
+  "ordineScuola": "Secondaria II grado",
+  "competenzeTarget": "Comprensione del testo, rielaborazione creativa",
+  "tecnologiaRichiesta": "Un dispositivo per gruppo, Canva (facoltativo)",
+  "possibileUdaCon": "Arte e Storia",
   "materialiNecessari": [
     {
       "id": "m1",
@@ -73,6 +78,7 @@
       "id": "s2",
       "titolo": "Rilettura",
       "fase": "pensa",
+      "adattamentoBes": "Per la dislessia: fornisci il testo con font ad alta leggibilità e interlinea ampia, leggi tu ad alta voce e non far leggere a turno chi è in difficoltà. Metti a disposizione la sintesi vocale.",
       "azione": "Leggi ad alta voce i versi 90-142, poi falli rileggere in silenzio seguendo il testo.",
       "cosaDico": "Ascoltate la voce di Ulisse: è lui che parla, chiuso dentro una fiamma.",
       "domande": [
@@ -95,6 +101,7 @@
       "id": "s3",
       "titolo": "Analisi",
       "fase": "pensa",
+      "adattamentoBes": "Costruisci alla lavagna una mappa concettuale con le parole chiave ('virtute', 'canoscenza') e sostieni con immagini. Consenti risposte per alzata di mano o a coppie, senza interrogazioni a sorpresa.",
       "azione": "Guida l'analisi: chi è Ulisse, cosa desidera, perché Dante lo colloca fra i consiglieri fraudolenti.",
       "cosaDico": "Ulisse non è punito per un viaggio: è punito per come ha usato le parole.",
       "domande": [
@@ -141,6 +148,7 @@
       "id": "s5",
       "titolo": "Storyboard",
       "fase": "fai",
+      "adattamentoBes": "Valorizza il canale visivo, punto di forza di molti DSA: accetta figure stilizzate, non si valuta il disegno. Fornisci una griglia di 4 vignette già impostata e un esempio da imitare.",
       "azione": "Fai disegnare a mano lo storyboard: 4 vignette per scena, con battute e inquadrature.",
       "cosaDico": "Prima la matita, poi la tecnologia: l'idea nasce sulla carta.",
       "domande": [
@@ -165,6 +173,7 @@
       "id": "s6",
       "titolo": "Intro Canva",
       "fase": "fai",
+      "adattamentoBes": "Dai una mini-guida illustrata passo-passo con screenshot; procedi lentamente, una sola azione alla volta, e verifica che tutti abbiano seguito prima di andare avanti.",
       "azione": "Mostra alla LIM come creare una striscia a fumetti in Canva: template, testo, elementi.",
       "cosaDico": "Canva è solo lo strumento: l'idea forte resta la vostra.",
       "domande": [
@@ -187,6 +196,7 @@
       "id": "s7",
       "titolo": "Realizzazione",
       "fase": "fai",
+      "adattamentoBes": "Consenti dettatura vocale per i testi e tempi flessibili; parti da un template già impostato. Abbina l'alunno BES a un compagno tutor e fissa traguardi intermedi brevi.",
       "azione": "Fai realizzare ai gruppi la striscia a fumetti in Canva, seguendo fedelmente lo storyboard.",
       "cosaDico": "Passo tra i banchi: chiamatemi solo se siete bloccati sull'idea, non sul programma.",
       "domande": [
@@ -211,6 +221,7 @@
       "id": "s8",
       "titolo": "Presentazione",
       "fase": "capisci",
+      "adattamentoBes": "Permetti di leggere da appunti o da uno schema; niente esposizione a sorpresa e tempi non rigidi. Va bene presentare in coppia, appoggiandosi al prodotto visivo.",
       "azione": "Ogni gruppo presenta la propria striscia: cosa hanno scelto di mostrare e perché.",
       "cosaDico": "Raccontateci non solo cosa avete fatto, ma perché avete scelto proprio quel momento.",
       "domande": [

@@ -17,6 +17,12 @@ export type Attivita = {
   metodologia: string; // gamification | digital storytelling | PBL | ...
   durataTotaleMin: number; // durata pianificata, es. 100
   immagine?: string; // hero banner contestuale (path in /public), mostrato nella card
+  voto?: number; // valutazione media del kit su 10 (fittizia per ora) — badge sulla card
+  // --- scheda di presentazione (mostrata nella card) ---
+  ordineScuola?: string; // es. "Secondaria II grado"
+  competenzeTarget?: string; // es. "Comprensione del testo, rielaborazione creativa"
+  tecnologiaRichiesta?: string; // es. "Proiettore o LIM, nessun account"
+  possibileUdaCon?: string; // spunti per una UDA interdisciplinare, es. "Arte e Storia"
   materialiNecessari: Materiale[];
   step: Step[];
   griglia: Griglia;
@@ -39,6 +45,7 @@ export type Step = {
   azione: string; // istruzione operativa dello step: paragrafo di approfondimento sotto il titolo
   cosaDico?: string; // (legacy) frase pronta da dire alla classe
   neuro?: string; // spunto di neurodidattica: perché questo step funziona
+  adattamentoBes?: string; // riquadro giallo: indicazioni per l'adattamento BES/DSA di questo step
   domande?: string[]; // domande da porre
   aiuti?: string[]; // cosa fare se la classe si blocca
   durataMin: number;
