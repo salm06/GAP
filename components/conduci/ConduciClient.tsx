@@ -263,7 +263,8 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
       {deriva && <BannerDeriva deriva={deriva} onAccetta={accettaDeriva} />}
 
       {/* Card dello step (sinistra) + annota fuori dal rettangolo (destra) */}
-      <main className="flex-1 px-3 pb-4 sm:px-6">
+      {/* pb ampio: lascia spazio alla barra di navigazione fissa in basso */}
+      <main className="flex-1 px-3 pb-24 sm:px-6">
         <div className="items-start gap-6 xl:grid xl:grid-cols-[1.4fr_1fr]">
           {/* Colonna sinistra: la card dello step, sul modello del mazzo */}
           <article

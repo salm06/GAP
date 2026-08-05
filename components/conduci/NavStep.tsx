@@ -17,7 +17,7 @@ export function NavStep({ attivita, sessione, onIndietro, onAvanti, onConcludi }
   const ultimo = i >= attivita.step.length - 1;
 
   return (
-    <nav className="sticky bottom-0 z-30 flex items-stretch gap-2 border-t border-panel-line bg-bg/90 px-3 py-3 backdrop-blur sm:px-6">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex items-stretch gap-2 border-t border-panel-line bg-bg/90 px-3 py-3 backdrop-blur sm:px-6">
       <button
         type="button"
         onClick={onIndietro}
