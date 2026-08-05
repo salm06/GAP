@@ -1,0 +1,30 @@
+{
+  "id": "2b-informatica",
+  "nome": "2B Informatica",
+  "alunni": [
+    { "id": "a1", "nome": "Bianchi A." },
+    { "id": "a2", "nome": "Conti G." },
+    { "id": "a3", "nome": "Ferrari M." },
+    { "id": "a4", "nome": "Romano S." },
+    { "id": "a5", "nome": "Greco L." },
+    { "id": "a6", "nome": "Ricci A." },
+    { "id": "a7", "nome": "Marino F." },
+    { "id": "a8", "nome": "Gallo C." },
+    { "id": "a9", "nome": "Costa D." },
+    { "id": "a10", "nome": "Rizzo M." },
+    { "id": "a11", "nome": "Bruno G." },
+    { "id": "a12", "nome": "Moretti E." },
+    { "id": "a13", "nome": "Barbieri R." },
+    { "id": "a14", "nome": "Fontana A." },
+    { "id": "a15", "nome": "Santoro T." },
+    { "id": "a16", "nome": "Mariani B." },
+    { "id": "a17", "nome": "Rinaldi A." },
+    { "id": "a18", "nome": "Caruso S." },
+    { "id": "a19", "nome": "Ferrara F." },
+    { "id": "a20", "nome": "Colombo N." },
+    { "id": "a21", "nome": "Leone S." },
+    { "id": "a22", "nome": "Longo V." },
+    { "id": "a23", "nome": "Gentile N." },
+    { "id": "a24", "nome": "Serra L." }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "3a-liceo",
+  "nome": "3A Liceo Scientifico",
+  "alunni": [
+    { "id": "b1", "nome": "Esposito G." },
+    { "id": "b2", "nome": "Russo E." },
+    { "id": "b3", "nome": "Romano L." },
+    { "id": "b4", "nome": "De Luca G." },
+    { "id": "b5", "nome": "Greco M." },
+    { "id": "b6", "nome": "Bruno V." },
+    { "id": "b7", "nome": "Villa S." },
+    { "id": "b8", "nome": "Rossi C." },
+    { "id": "b9", "nome": "Ferraro A." },
+    { "id": "b10", "nome": "Marchetti I." },
+    { "id": "b11", "nome": "Galli P." },
+    { "id": "b12", "nome": "Conte R." },
+    { "id": "b13", "nome": "Martini F." },
+    { "id": "b14", "nome": "Vitale A." },
+    { "id": "b15", "nome": "Pellegrini E." },
+    { "id": "b16", "nome": "Lombardi G." },
+    { "id": "b17", "nome": "Moretti C." },
+    { "id": "b18", "nome": "D'Amico M." },
+    { "id": "b19", "nome": "Testa S." },
+    { "id": "b20", "nome": "Palumbo N." },
+    { "id": "b21", "nome": "Fabbri D." },
+    { "id": "b22", "nome": "Montanari A." },
+    { "id": "b23", "nome": "Basile L." },
+    { "id": "b24", "nome": "Sorrentino E." },
+    { "id": "b25", "nome": "Coppola M." },
+    { "id": "b26", "nome": "Barone G." }
+  ]
+}

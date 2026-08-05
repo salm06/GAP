@@ -1,0 +1,293 @@
+{
+  "id": "dante-ulisse",
+  "titolo": "Ulisse a fumetti — Inferno XXVI",
+  "materia": "Italiano",
+  "metodologia": "digital storytelling",
+  "durataTotaleMin": 100,
+  "immagine": "/hero/dante-ulisse.jpg",
+  "materialiNecessari": [
+    {
+      "id": "m1",
+      "descrizione": "Testo del canto XXVI dell'Inferno (una copia per studente)",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m2",
+      "descrizione": "Fogli A3 e matite per lo storyboard (uno per gruppo)",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m3",
+      "descrizione": "Un dispositivo con connessione per ogni gruppo (tablet o PC)",
+      "tipo": "tecnico",
+      "critico": false
+    },
+    {
+      "id": "m4",
+      "descrizione": "Account Canva for Education della classe",
+      "tipo": "digitale",
+      "link": "https://www.canva.com/education/",
+      "critico": false
+    },
+    {
+      "id": "m5",
+      "descrizione": "LIM o proiettore per la dimostrazione",
+      "tipo": "tecnico",
+      "critico": false
+    },
+    {
+      "id": "m6",
+      "descrizione": "Immagine di aggancio: un viaggiatore di spalle verso l'orizzonte",
+      "tipo": "digitale",
+      "link": "https://www.canva.com/",
+      "critico": false
+    }
+  ],
+  "step": [
+    {
+      "id": "s1",
+      "titolo": "Aggancio",
+      "azione": "Proietta l'immagine del viaggiatore e chiedi alla classe: cosa spinge un uomo a ripartire sempre?",
+      "cosaDico": "Oggi conosciamo un eroe che non riesce a stare fermo: Ulisse, così come lo racconta Dante.",
+      "domande": [
+        "Chi era Ulisse per voi, prima di oggi?",
+        "Che cos'è, secondo voi, la 'sete di conoscenza'?"
+      ],
+      "aiuti": [
+        "Se nessuno risponde, parti tu raccontando un tuo viaggio recente.",
+        "Accetta anche risposte 'sbagliate': servono ad aprire il discorso."
+      ],
+      "durataMin": 8,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 2,
+      "osservabili": [
+        { "id": "o-s1-1", "label": "Partecipano attivi", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s1-2", "label": "Colgono lo spunto", "criterioId": "c1", "livello": 3, "ambito": "classe" },
+        { "id": "o-s1-3", "label": "Faticano a entrare", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s2",
+      "titolo": "Rilettura",
+      "azione": "Leggi ad alta voce i versi 90-142, poi falli rileggere in silenzio seguendo il testo.",
+      "cosaDico": "Ascoltate la voce di Ulisse: è lui che parla, chiuso dentro una fiamma.",
+      "domande": [
+        "Quali parole non capite?",
+        "Che tono ha la voce di Ulisse?"
+      ],
+      "aiuti": [
+        "Rileggi tu i due o tre versi più difficili spiegandoli a parole tue."
+      ],
+      "durataMin": 10,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s2-1", "label": "Seguono il testo", "criterioId": "c1", "livello": 3, "ambito": "classe" },
+        { "id": "o-s2-2", "label": "Ascolto attento", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s2-3", "label": "Si distraggono", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s3",
+      "titolo": "Analisi",
+      "azione": "Guida l'analisi: chi è Ulisse, cosa desidera, perché Dante lo colloca fra i consiglieri fraudolenti.",
+      "cosaDico": "Ulisse non è punito per un viaggio: è punito per come ha usato le parole.",
+      "domande": [
+        "Perché Dante lo mette all'Inferno?",
+        "Qual è davvero la sua colpa?",
+        "Voi lo ammirate o lo condannate?"
+      ],
+      "aiuti": [
+        "Scrivi alla lavagna le due parole chiave: 'virtute' e 'canoscenza'.",
+        "Fai votare la classe per alzata di mano: ammirazione o condanna?"
+      ],
+      "durataMin": 10,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 2,
+      "osservabili": [
+        { "id": "o-s3-1", "label": "Colgono il senso", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s3-2", "label": "Argomentano bene", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s3-3", "label": "Confusione diffusa", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s4",
+      "titolo": "Gruppi",
+      "azione": "Dividi la classe in 6 gruppi e assegna a ciascuno una scena chiave dell'episodio di Ulisse.",
+      "cosaDico": "Ogni gruppo diventa autore di una scena: sarete voi a dare un volto a Ulisse.",
+      "domande": [
+        "Quale scena vi ha colpito di più?"
+      ],
+      "aiuti": [
+        "Se i gruppi litigano, assegna tu i ruoli: sceneggiatore, disegnatore, tecnico.",
+        "Tieni pronte le scene già ritagliate su bigliettini da sorteggiare."
+      ],
+      "durataMin": 7,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 3,
+      "osservabili": [
+        { "id": "o-s4-1", "label": "Si organizzano", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s4-2", "label": "Ruoli chiari", "criterioId": "c2", "livello": 4, "ambito": "classe" },
+        { "id": "o-s4-3", "label": "Fatica a dividersi", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s5",
+      "titolo": "Storyboard",
+      "azione": "Fai disegnare a mano lo storyboard: 4 vignette per scena, con battute e inquadrature.",
+      "cosaDico": "Prima la matita, poi la tecnologia: l'idea nasce sulla carta.",
+      "domande": [
+        "Qual è il momento più drammatico della vostra scena?",
+        "Che espressione ha Ulisse in questa vignetta?"
+      ],
+      "aiuti": [
+        "Mostra alla lavagna un esempio di storyboard a 4 vignette.",
+        "Ricorda: bastano figure stilizzate, non è un test di disegno."
+      ],
+      "fallback": "Restate sullo storyboard cartaceo: sarà il prodotto finale se manca la tecnologia.",
+      "durataMin": 15,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 3,
+      "osservabili": [
+        { "id": "o-s5-1", "label": "Idee creative", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s5-2", "label": "Collaborano bene", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s5-3", "label": "In difficoltà", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s6",
+      "titolo": "Intro Canva",
+      "azione": "Mostra alla LIM come creare una striscia a fumetti in Canva: template, testo, elementi.",
+      "cosaDico": "Canva è solo lo strumento: l'idea forte resta la vostra.",
+      "domande": [
+        "Vi è chiaro come si aggiunge una nuvoletta?"
+      ],
+      "aiuti": [
+        "Se il wifi è lento, condividi il template con un solo dispositivo per gruppo."
+      ],
+      "fallback": "Salta Canva: completate la striscia a mano su foglio A3 colorato.",
+      "durataMin": 8,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s6-1", "label": "Seguono la demo", "criterioId": "c3", "livello": 3, "ambito": "classe" },
+        { "id": "o-s6-2", "label": "Autonomi sullo strumento", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s6-3", "label": "Servono più spiegazioni", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s7",
+      "titolo": "Realizzazione",
+      "azione": "Fai realizzare ai gruppi la striscia a fumetti in Canva, seguendo fedelmente lo storyboard.",
+      "cosaDico": "Passo tra i banchi: chiamatemi solo se siete bloccati sull'idea, non sul programma.",
+      "domande": [
+        "Le vignette raccontano la storia anche senza le parole?",
+        "Il testo è essenziale o si può tagliare?"
+      ],
+      "aiuti": [
+        "Passa tra i gruppi: chi finisce prima aiuta chi è indietro.",
+        "Fissa un traguardo intermedio: 'a metà tempo, prime due vignette pronte'."
+      ],
+      "fallback": "Completate la striscia a mano: conta l'efficacia del racconto, non lo strumento.",
+      "durataMin": 22,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s7-1", "label": "Padroneggiano Canva", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s7-2", "label": "Rielaborano bene", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s7-3", "label": "Copiano e basta", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s8",
+      "titolo": "Presentazione",
+      "azione": "Ogni gruppo presenta la propria striscia: cosa hanno scelto di mostrare e perché.",
+      "cosaDico": "Raccontateci non solo cosa avete fatto, ma perché avete scelto proprio quel momento.",
+      "domande": [
+        "Perché avete scelto di rappresentare questa scena?",
+        "Cosa avreste voluto aggiungere con più tempo?"
+      ],
+      "aiuti": [
+        "Dai a ogni gruppo un tempo fisso di 90 secondi e cronometralo con loro."
+      ],
+      "durataMin": 12,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s8-1", "label": "Espongono chiaro", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s8-2", "label": "Ascoltano i compagni", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s8-3", "label": "Presentazione confusa", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s9",
+      "titolo": "Debriefing",
+      "azione": "Chiudi con una domanda: cosa ha ancora da dirci, oggi, la sete di conoscenza di Ulisse?",
+      "cosaDico": "Ulisse riparte ancora, ogni volta che qualcuno di voi vuole capire qualcosa di più.",
+      "domande": [
+        "In cosa vi sentite simili a Ulisse?"
+      ],
+      "aiuti": [
+        "Se il tempo è finito, lascia la domanda come spunto per il diario di bordo a casa."
+      ],
+      "durataMin": 8,
+      "elasticita": "tagliabile",
+      "minutiRecuperabili": 6,
+      "osservabili": [
+        { "id": "o-s9-1", "label": "Riflessione profonda", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s9-2", "label": "Partecipano al debrief", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s9-3", "label": "Stanchi e distratti", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+      ]
+    }
+  ],
+  "griglia": {
+    "criteri": [
+      {
+        "id": "c1",
+        "nome": "Comprensione del testo dantesco",
+        "competenzaMinisteriale": "Padroneggiare gli strumenti espressivi per la lettura di testi letterari",
+        "descrittori": [
+          { "livello": 1, "testo": "Non coglie il senso letterale dell'episodio." },
+          { "livello": 2, "testo": "Coglie il senso letterale ma non il significato profondo." },
+          { "livello": 3, "testo": "Comprende senso e significato con qualche imprecisione." },
+          { "livello": 4, "testo": "Interpreta l'episodio cogliendone il valore simbolico." }
+        ]
+      },
+      {
+        "id": "c2",
+        "nome": "Collaborazione nel gruppo",
+        "competenzaMinisteriale": "Competenze sociali e civiche",
+        "descrittori": [
+          { "livello": 1, "testo": "Non partecipa al lavoro di gruppo." },
+          { "livello": 2, "testo": "Partecipa solo se sollecitato." },
+          { "livello": 3, "testo": "Collabora attivamente e rispetta i ruoli." },
+          { "livello": 4, "testo": "Coordina il gruppo e valorizza i compagni." }
+        ]
+      },
+      {
+        "id": "c3",
+        "nome": "Competenza digitale",
+        "competenzaMinisteriale": "Competenza digitale",
+        "descrittori": [
+          { "livello": 1, "testo": "Non riesce a usare lo strumento in autonomia." },
+          { "livello": 2, "testo": "Usa lo strumento con l'aiuto costante del docente." },
+          { "livello": 3, "testo": "Usa Canva in autonomia per le funzioni base." },
+          { "livello": 4, "testo": "Sfrutta Canva con padronanza e aiuta i compagni." }
+        ]
+      },
+      {
+        "id": "c4",
+        "nome": "Creatività e rielaborazione narrativa",
+        "competenzaMinisteriale": "Consapevolezza ed espressione culturale",
+        "descrittori": [
+          { "livello": 1, "testo": "Riproduce il testo senza rielaborarlo." },
+          { "livello": 2, "testo": "Rielabora in modo essenziale e prevedibile." },
+          { "livello": 3, "testo": "Rielabora l'episodio con soluzioni personali." },
+          { "livello": 4, "testo": "Trasforma l'episodio con originalità ed efficacia visiva." }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,528 @@
+{
+  "id": "commissione-alla-cieca",
+  "titolo": "Una commissione alla cieca",
+  "materia": "Educazione civica",
+  "metodologia": "design thinking",
+  "durataTotaleMin": 300,
+  "immagine": "/hero/commissione-alla-cieca.jpg",
+  "materialiNecessari": [
+    {
+      "id": "m1",
+      "descrizione": "Bende morbide (una ogni quattro alunni)",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m2",
+      "descrizione": "Foglietti numerati per i turni e un timer",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m3",
+      "descrizione": "Cartone, nastro, forbici, post-it e pennarelli",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m4",
+      "descrizione": "Un'aula libera con un percorso sgombro da zaini, cavi e spigoli (banchi spostabili)",
+      "tipo": "fisico",
+      "critico": true
+    },
+    {
+      "id": "m5",
+      "descrizione": "Un telefono per registrare voci e tempi",
+      "tipo": "tecnico",
+      "critico": false
+    },
+    {
+      "id": "m6",
+      "descrizione": "Un testimone: una persona non vedente o un'associazione (per i passi 07 e 16)",
+      "tipo": "digitale",
+      "critico": false
+    }
+  ],
+  "step": [
+    {
+      "id": "s1",
+      "titolo": "Apertura",
+      "fase": "setup",
+      "azione": "Presenta lo scopo e le tre fasi — Pensa, Fai, Capisci — e lancia la domanda guida: dove si blocca chi non vede?",
+      "cosaDico": "Oggi non studiamo l'accessibilità: la costruiamo. Alla fine avrete un prototipo, non una teoria.",
+      "neuro": "Aprire con lo scopo e la posta in gioco crea aspettativa: il cervello fissa meglio ciò che riconosce come rilevante. Dichiarare subito le tre fasi funziona da organizzatore anticipato — una mappa mentale a cui agganciare tutto ciò che verrà.",
+      "domande": [
+        "Chi era, per voi, una persona non vedente prima di oggi?",
+        "Dove pensate si blocchi, in un ufficio postale?"
+      ],
+      "aiuti": [
+        "Dichiara subito le tre fasi: è la mappa a cui aggancerete tutto.",
+        "Nessuno deve 'fare il non vedente': il destinatario è chi non vede, progettiamo per lui."
+      ],
+      "durataMin": 8,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 3,
+      "osservabili": [
+        { "id": "o-s1-1", "label": "Partecipano attivi", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s1-2", "label": "Colgono lo scopo", "criterioId": "c4", "livello": 3, "ambito": "classe" },
+        { "id": "o-s1-3", "label": "Faticano a entrare", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s2",
+      "titolo": "Allestisci la posta",
+      "fase": "setup",
+      "azione": "Trasforma l'aula: i banchi in fondo sono gli sportelli, una voce chiama i turni solo a voce, il resto è sala d'attesa.",
+      "cosaDico": "I numeri sono grandi ma solo da vedere. Gli operatori lavorano, non aiutano.",
+      "neuro": "L'apprendimento situato sfrutta la memoria dipendente dal contesto: ricostruire un ambiente realistico rende l'esperienza credibile e facilita il transfer di ciò che si impara alla vita reale.",
+      "domande": [
+        "Chi fa l'operatore? Chi chiama i turni? Chi osserva?",
+        "Il percorso è davvero libero da zaini, cavi e spigoli?"
+      ],
+      "aiuti": [
+        "Spostate i banchi ora, non durante l'attività.",
+        "Ricreate un po' di rumore in sala d'attesa: è parte della realtà."
+      ],
+      "durataMin": 10,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s2-1", "label": "Si organizzano", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s2-2", "label": "Restano nel ruolo", "criterioId": "c2", "livello": 4, "ambito": "classe" },
+        { "id": "o-s2-3", "label": "Confusione nell'allestire", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s3",
+      "titolo": "Mappa la commissione",
+      "fase": "pensa",
+      "azione": "Elenca con la classe ogni passaggio della commissione, dall'ingresso all'uscita: un post-it per passaggio, in ordine.",
+      "cosaDico": "Questa lista sarà il vostro metro di misura: non date niente per scontato, scrivetelo.",
+      "neuro": "Rendere esplicito un compito di solito automatico (task analysis) costruisce uno schema mentale condiviso. Solo dopo aver nominato ogni passaggio la classe potrà accorgersi di dove, esattamente, nasce la barriera.",
+      "domande": [
+        "Dove prendi il numero? Come sai quando tocca a te?",
+        "Chi ci è stato di recente? Cosa hai dovuto fare, passo per passo?"
+      ],
+      "aiuti": [
+        "Se un passaggio manca, aggiungetelo subito alla fila di post-it.",
+        "Solo dopo aver nominato ogni passaggio si vede dove nasce la barriera."
+      ],
+      "durataMin": 15,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 3,
+      "osservabili": [
+        { "id": "o-s3-1", "label": "Analizzano a fondo", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s3-2", "label": "Collaborano bene", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s3-3", "label": "Restano in superficie", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s4",
+      "titolo": "Regole della benda",
+      "fase": "pensa",
+      "azione": "Prima di bendarsi, di' ad alta voce le regole: la benda scopre le barriere, dura dieci minuti, nessuno è obbligato.",
+      "cosaDico": "Dieci minuti finiscono. Una disabilità no. Qui si osserva, non si scherza.",
+      "neuro": "Definire regole etiche e di sicurezza crea sicurezza psicologica: quando l'amigdala non percepisce minaccia o giudizio, la corteccia prefrontale resta libera di apprendere. Inquadrare la benda come \"scoperta delle barriere\" evita di ridurre la disabilità a un'esperienza da imitare.",
+      "domande": [
+        "Chi non se la sente di bendarsi? Farà l'osservatore.",
+        "Chi accompagna, in silenzio, chi è bendato?"
+      ],
+      "aiuti": [
+        "Vietato ridere e vietato lasciare solo chi è bendato.",
+        "Inquadra la benda come scoperta delle barriere, non come imitazione della cecità."
+      ],
+      "durataMin": 5,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 1,
+      "osservabili": [
+        { "id": "o-s4-1", "label": "Rispetto e attenzione", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s4-2", "label": "Prendono sul serio", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s4-3", "label": "Sdrammatizzano troppo", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s5",
+      "titolo": "Attraversa l'aula bendati",
+      "fase": "pensa",
+      "azione": "Cinque a turno si bendano, ricevono un numero e devono arrivare allo sportello giusto alla chiamata. Un compagno a fianco, in silenzio.",
+      "cosaDico": "Prendetevi il tempo: non è una gara. Operatori, chiamate i turni solo a voce.",
+      "neuro": "L'esperienza multisensoriale e incarnata coinvolge il sistema limbico: emozione e corpo insieme lasciano una traccia di memoria episodica molto più forte di qualunque spiegazione. È il vero \"imparare facendo\".",
+      "domande": [
+        "Osservatori: dove si è bloccato chi era bendato?",
+        "Cosa gli è mancato per capire dove andare?"
+      ],
+      "aiuti": [
+        "Con 20 alunni: 5 bendati, 4 operatori, gli altri in attesa che fanno rumore.",
+        "Sicurezza sempre: un passo a fianco di chi è bendato, in silenzio."
+      ],
+      "durataMin": 35,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s5-1", "label": "Empatia autentica", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s5-2", "label": "Si prendono cura", "criterioId": "c2", "livello": 4, "ambito": "classe" },
+        { "id": "o-s5-3", "label": "Vivono l'esperienza distratti", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s6",
+      "titolo": "Racconta e misura",
+      "fase": "pensa",
+      "azione": "Chi era bendato parla per primo, benda ancora addosso, solo fatti. Registra i secondi, gli aiuti chiesti, gli sportelli sbagliati.",
+      "cosaDico": "Solo fatti: cosa è successo, non cosa pensiamo. Niente giudizi: registriamo e basta.",
+      "neuro": "Il richiamo immediato — mentre l'attivazione emotiva è ancora alta e prima che scatti il \"lo sapevo\" del senno di poi — consolida il ricordo. Parlare ancora bendati tiene il resoconto ancorato ai fatti, non alle interpretazioni.",
+      "domande": [
+        "Quanti secondi per arrivare? Quante volte hai chiesto aiuto?",
+        "Quanti sportelli sbagliati prima di quello giusto?"
+      ],
+      "aiuti": [
+        "Fai parlare chi era bendato mentre l'emozione è ancora alta.",
+        "Segnate questi numeri: serviranno per il confronto finale."
+      ],
+      "durataMin": 20,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s6-1", "label": "Osservano con precisione", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s6-2", "label": "Ascoltano i compagni", "criterioId": "c1", "livello": 3, "ambito": "classe" },
+        { "id": "o-s6-3", "label": "Interpretano invece di osservare", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s7",
+      "titolo": "La voce vera",
+      "fase": "pensa",
+      "azione": "Ascolta una persona non vedente o un'associazione: come fa oggi questa commissione, cosa le fa perdere più tempo.",
+      "cosaDico": "Ascoltiamo chi vive questo ogni giorno. Una domanda alla volta, poi silenzio.",
+      "neuro": "La testimonianza autentica attiva empatia e assunzione di prospettiva (i sistemi neurali dello specchio): una narrazione vera lascia una traccia più profonda di qualunque simulazione, perché unisce emozione, volto e storia reale.",
+      "domande": [
+        "Come fai questa commissione, davvero?",
+        "Cosa ti hanno 'risolto' senza chiedertelo?"
+      ],
+      "aiuti": [
+        "Se manca il testimone, salta questo passo e vai alla definizione.",
+        "Lasciate parlare: niente fretta, niente correzioni. Poi ringraziate."
+      ],
+      "durataMin": 20,
+      "elasticita": "tagliabile",
+      "minutiRecuperabili": 20,
+      "osservabili": [
+        { "id": "o-s7-1", "label": "Ascolto attento", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s7-2", "label": "Domande di qualità", "criterioId": "c1", "livello": 4, "ambito": "classe" },
+        { "id": "o-s7-3", "label": "Si distraggono", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s8",
+      "titolo": "La barriera non è la persona",
+      "fase": "pensa",
+      "azione": "In gruppi da quattro, riscrivi ogni blocco spostandolo dalla persona all'ambiente: un post-it per barriera.",
+      "cosaDico": "Non 'non vede il numero', ma 'il turno è solo visivo'. La barriera è nel servizio, non in chi lo usa.",
+      "neuro": "Riformulare il linguaggio riscrive il modello mentale: spostare l'attribuzione dalla persona all'ambiente riduce il bias e insegna al cervello a cercare la causa nel sistema, non nell'individuo.",
+      "domande": [
+        "Questa frase incolpa la persona o l'ambiente?",
+        "Come la riscrivete puntando sul servizio?"
+      ],
+      "aiuti": [
+        "Non 'si perde': 'il percorso non è segnalato'. Non 'chiede aiuto': 'l'informazione manca'.",
+        "Se la frase incolpa la persona, riscrivetela finché non punta al sistema."
+      ],
+      "durataMin": 25,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s8-1", "label": "Ribaltano la prospettiva", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s8-2", "label": "Riformulano con cura", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s8-3", "label": "Restano sulla persona", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s9",
+      "titolo": "Scegliete una barriera",
+      "fase": "pensa",
+      "azione": "Scegli una sola barriera, quella tornata in tutti i turni, e scrivi la domanda guida 'Come possiamo fare in modo che…'.",
+      "cosaDico": "Una sola barriera: quella che torna sempre. Se è troppo grande, restringetela.",
+      "neuro": "Restringere il campo a una sola domanda ben formulata orienta l'attenzione: una \"Come possiamo…\" precisa innesca il meccanismo di ricerca di schemi del cervello, incanalando l'energia creativa verso un bersaglio.",
+      "domande": [
+        "Quale barriera è tornata in ogni turno?",
+        "Come suona la vostra 'Come possiamo…'?"
+      ],
+      "aiuti": [
+        "Formula: 'Come possiamo fare in modo che una persona non vedente possa… nonostante…'.",
+        "Appendete la domanda dove tutti la vedono: orienta tutta la fase Fai."
+      ],
+      "durataMin": 10,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 2,
+      "osservabili": [
+        { "id": "o-s9-1", "label": "Mettono a fuoco", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s9-2", "label": "Decidono insieme", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s9-3", "label": "Domanda troppo vaga", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s10",
+      "titolo": "Venti idee in dieci minuti",
+      "fase": "fai",
+      "azione": "Lancia un brainstorming: quantità prima della qualità, un'idea per post-it, in silenzio. Vietato criticare per dieci minuti.",
+      "cosaDico": "Nessun 'non si può' per dieci minuti. Anche l'idea assurda serve: buttatela giù.",
+      "neuro": "Sospendere il giudizio abbassa la minaccia e libera l'esplorazione (i circuiti dopaminergici della ricompensa): puntare sulla quantità favorisce associazioni nuove e inattese, il cuore del pensiero divergente.",
+      "domande": [
+        "Potete copiare e migliorare l'idea del vicino?",
+        "Siete arrivati a venti? Non fermatevi prima."
+      ],
+      "aiuti": [
+        "Sospendi il giudizio: qui conta il numero, non ancora la qualità.",
+        "Alla fine leggete tutte le idee ad alta voce."
+      ],
+      "durataMin": 10,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 3,
+      "osservabili": [
+        { "id": "o-s10-1", "label": "Idee in quantità", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s10-2", "label": "Costruiscono sugli altri", "criterioId": "c2", "livello": 4, "ambito": "classe" },
+        { "id": "o-s10-3", "label": "Si bloccano a criticare", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s11",
+      "titolo": "Cambia senso",
+      "fase": "fai",
+      "azione": "Prendi ogni informazione visiva e riscrivila in un altro senso: voce, suono, vibrazione, rilievo, forma, temperatura.",
+      "cosaDico": "Il numero della coda: come lo dici senza schermo? Un senso non basta? Combinatene due.",
+      "neuro": "Tradurre un'informazione da un senso all'altro è pensiero analogico e cross-modale: costringe il cervello a rappresentare la stessa idea in forme diverse, creando connessioni neurali nuove e flessibili.",
+      "domande": [
+        "Se è visivo, come lo trasformi in suono o tatto?",
+        "Dove funziona già così? Potete rubare l'idea?"
+      ],
+      "aiuti": [
+        "Provate a spiegare la vostra idea ad occhi chiusi.",
+        "Tradurre da un senso all'altro crea le soluzioni più originali."
+      ],
+      "durataMin": 15,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s11-1", "label": "Pensiero flessibile", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s11-2", "label": "Soluzioni originali", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s11-3", "label": "Restano sul visivo", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s12",
+      "titolo": "Scegliete con tre criteri",
+      "fase": "fai",
+      "azione": "Filtra le idee con tre criteri: utile, realizzabile oggi in aula, non stigmatizzante. Scegline una sola da costruire.",
+      "cosaDico": "Tre criteri, nessuno negoziabile. Salta un criterio? Torna sul tavolo.",
+      "neuro": "Dopo la divergenza serve convergenza: valutare con criteri chiari attiva le funzioni esecutive della prefrontale, il \"filtro\" che trasforma tante idee grezze in una scelta sensata e realizzabile.",
+      "domande": [
+        "È utile: risolve davvero la barriera scelta?",
+        "È non stigmatizzante: fa notare chi la usa?"
+      ],
+      "aiuti": [
+        "Realizzabile: si prova oggi, qui, con cartone e nastro?",
+        "Dopo tante idee serve una scelta netta: una sola va avanti."
+      ],
+      "durataMin": 10,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 2,
+      "osservabili": [
+        { "id": "o-s12-1", "label": "Valutano con criteri", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s12-2", "label": "Pensano a chi la usa", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s12-3", "label": "Scelgono a caso", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s13",
+      "titolo": "Brutto e presto",
+      "fase": "fai",
+      "azione": "Costruisci in trenta minuti solo la parte che mani o orecchie devono incontrare. Brutto va bene, veloce è il punto.",
+      "cosaDico": "Non è arte, è un test: sporcatevi le mani. Se è bello, avete perso tempo.",
+      "neuro": "Costruire qualcosa di tangibile chiude subito il ciclo di feedback (learning by making). Restare \"brutti e veloci\" evita l'attaccamento da costo affondato: meno ci si innamora del prototipo, più la mente resta aperta a cambiarlo.",
+      "domande": [
+        "Qual è la sola parte che la persona tocca o sente?",
+        "Cosa vi serve davvero: cartone, nastro, o il telefono per le voci?"
+      ],
+      "aiuti": [
+        "Cartone e nastro per ciò che si tocca, il telefono per registrare le voci.",
+        "Meno vi innamorate del prototipo, più resterete aperti a cambiarlo."
+      ],
+      "durataMin": 30,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s13-1", "label": "Costruiscono davvero", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s13-2", "label": "Si dividono i compiti", "criterioId": "c2", "livello": 4, "ambito": "classe" },
+        { "id": "o-s13-3", "label": "Si perdono nei dettagli", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s14",
+      "titolo": "Il copione",
+      "fase": "fai",
+      "azione": "Scrivi la scena: chi dice cosa, in che ordine, e cosa succede se la persona sbaglia strada.",
+      "cosaDico": "'Sportello 3, alla tua destra' batte 'prego, si accomodi'. Ogni parola deve servire.",
+      "neuro": "Mettere in sequenza le azioni e anticipare l'errore è ripasso procedurale: prevedere cosa accade \"se la persona sbaglia strada\" sfrutta l'apprendimento basato sull'errore, che rinforza la memoria più della sola esecuzione corretta.",
+      "domande": [
+        "Cosa dice il sistema se la persona sbaglia strada?",
+        "Le frasi sono brevi: prima l'informazione, poi i dettagli?"
+      ],
+      "aiuti": [
+        "Provate a leggere il copione ad occhi chiusi: si capisce dove andare?",
+        "Prevedere l'errore rinforza il progetto più della sola strada giusta."
+      ],
+      "durataMin": 20,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s14-1", "label": "Anticipano l'errore", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s14-2", "label": "Scrivono chiaro", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s14-3", "label": "Copione confuso", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s15",
+      "titolo": "Si riapre la posta",
+      "fase": "capisci",
+      "azione": "Rimetti a posto sportelli e smistamento: chi era bendato rifà lo stesso percorso, col prototipo e lo stesso cronometro.",
+      "cosaDico": "Il gruppo non parla, non aiuta, non corregge. Serve una spiegazione? Allora non funziona.",
+      "neuro": "Ripetere lo stesso percorso nelle stesse condizioni trasforma l'esperienza in un esperimento controllato: il confronto diretto prima/dopo genera un feedback pulito che alimenta la metacognizione.",
+      "domande": [
+        "Il prototipo funziona senza che nessuno spieghi nulla?",
+        "Dove si inceppa ancora il percorso?"
+      ],
+      "aiuti": [
+        "Stesso percorso e stesso cronometro di prima: così il confronto è pulito.",
+        "Silenzio: lasciate lavorare il prototipo, non i suggerimenti."
+      ],
+      "durataMin": 20,
+      "elasticita": "essenziale",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s15-1", "label": "Testano con rigore", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s15-2", "label": "Rispettano il silenzio", "criterioId": "c2", "livello": 3, "ambito": "classe" },
+        { "id": "o-s15-3", "label": "Intervengono e aiutano", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s16",
+      "titolo": "Tre misure",
+      "fase": "capisci",
+      "azione": "Confronta con la prima volta: secondi e richieste d'aiuto, prima e dopo. Poi mostra il prototipo alla persona intervistata.",
+      "cosaDico": "I numeri sono scesi? Di quanto? Tenete una sola correzione, la più importante.",
+      "neuro": "Rendere l'apprendimento visibile con numeri concreti dà feedback metacognitivo: dati semplici (secondi, richieste d'aiuto) ancorano un miglioramento astratto a prove tangibili — e il cervello si fida di ciò che può misurare.",
+      "domande": [
+        "Quanti secondi prima, quanti dopo?",
+        "Quante richieste d'aiuto in meno?"
+      ],
+      "aiuti": [
+        "Se manca il testimone, tieni comunque il confronto prima/dopo dei numeri.",
+        "Dati semplici rendono visibile un miglioramento altrimenti astratto."
+      ],
+      "durataMin": 20,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 5,
+      "osservabili": [
+        { "id": "o-s16-1", "label": "Leggono i dati", "criterioId": "c3", "livello": 4, "ambito": "classe" },
+        { "id": "o-s16-2", "label": "Riflettono sul risultato", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s16-3", "label": "Ignorano le misure", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s17",
+      "titolo": "Presentate in due minuti",
+      "fase": "capisci",
+      "azione": "Ogni gruppo presenta in due minuti senza slide: chi è la persona, quale barriera, cosa avete costruito, i tre numeri.",
+      "cosaDico": "Raccontate anche cosa non ha funzionato. Cronometro acceso: due minuti veri.",
+      "neuro": "Dover articolare e \"insegnare\" agli altri innesca l'effetto generazione e l'effetto protégé: spiegare a voce, senza slide, obbliga a riorganizzare — e quindi a consolidare — ciò che si è capito.",
+      "domande": [
+        "Chi è la persona e quale barriera avete scelto?",
+        "Come sono cambiati i tre numeri?"
+      ],
+      "aiuti": [
+        "Con cinque gruppi sono dieci minuti: tieni il tempo con loro.",
+        "Spiegare a voce, senza slide, obbliga a riorganizzare ciò che si è capito."
+      ],
+      "durataMin": 15,
+      "elasticita": "comprimibile",
+      "minutiRecuperabili": 4,
+      "osservabili": [
+        { "id": "o-s17-1", "label": "Espongono chiaro", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s17-2", "label": "Ascoltano gli altri gruppi", "criterioId": "c1", "livello": 3, "ambito": "classe" },
+        { "id": "o-s17-3", "label": "Presentazione confusa", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+      ]
+    },
+    {
+      "id": "s18",
+      "titolo": "Cosa resta",
+      "fase": "capisci",
+      "azione": "Chiudi con un debrief senza voti e un impegno concreto: una cosa da cambiare nella vostra scuola, entro un mese.",
+      "cosaDico": "Debrief senza voti: parliamo davvero. Portate questo sguardo fuori da qui.",
+      "neuro": "La riflessione finale consolida per elaborazione, e un impegno con scadenza (\"entro un mese\") è un'intenzione di implementazione: lega il sapere all'agire e, fissando quando e cosa, rende molto più probabile che il cambiamento avvenga davvero.",
+      "domande": [
+        "Cosa hai capito che non sapevi prima di bendarti?",
+        "Cosa non diresti più come lo dicevi prima?"
+      ],
+      "aiuti": [
+        "Un impegno con scadenza ('entro un mese') rende il cambiamento più probabile.",
+        "Chi se ne fa carico? Fissate chi, cosa e quando."
+      ],
+      "durataMin": 15,
+      "elasticita": "tagliabile",
+      "minutiRecuperabili": 8,
+      "osservabili": [
+        { "id": "o-s18-1", "label": "Riflessione profonda", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s18-2", "label": "Prendono un impegno", "criterioId": "c4", "livello": 4, "ambito": "classe" },
+        { "id": "o-s18-3", "label": "Stanchi e distratti", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+      ]
+    }
+  ],
+  "griglia": {
+    "criteri": [
+      {
+        "id": "c1",
+        "nome": "Empatia e ascolto attivo",
+        "competenzaMinisteriale": "Competenze sociali e civiche",
+        "descrittori": [
+          { "livello": 1, "testo": "Non entra nell'esperienza e non ascolta i compagni." },
+          { "livello": 2, "testo": "Partecipa in modo superficiale, con poca attenzione all'altro." },
+          { "livello": 3, "testo": "Ascolta e mostra rispetto per il punto di vista di chi non vede." },
+          { "livello": 4, "testo": "Assume davvero la prospettiva dell'altro e ne coglie i bisogni." }
+        ]
+      },
+      {
+        "id": "c2",
+        "nome": "Collaborazione nel gruppo",
+        "competenzaMinisteriale": "Imparare a imparare · competenze sociali",
+        "descrittori": [
+          { "livello": 1, "testo": "Non partecipa al lavoro di gruppo." },
+          { "livello": 2, "testo": "Partecipa solo se sollecitato." },
+          { "livello": 3, "testo": "Collabora attivamente e rispetta i ruoli." },
+          { "livello": 4, "testo": "Coordina il gruppo e valorizza i compagni." }
+        ]
+      },
+      {
+        "id": "c3",
+        "nome": "Pensiero progettuale e problem solving",
+        "competenzaMinisteriale": "Spirito di iniziativa e imprenditorialità",
+        "descrittori": [
+          { "livello": 1, "testo": "Non individua il problema né propone soluzioni." },
+          { "livello": 2, "testo": "Coglie il problema ma resta su idee generiche." },
+          { "livello": 3, "testo": "Analizza la barriera e prototipa una soluzione realizzabile." },
+          { "livello": 4, "testo": "Definisce il problema e progetta soluzioni originali e verificabili." }
+        ]
+      },
+      {
+        "id": "c4",
+        "nome": "Consapevolezza dell'inclusione",
+        "competenzaMinisteriale": "Competenze in materia di cittadinanza",
+        "descrittori": [
+          { "livello": 1, "testo": "Attribuisce la difficoltà alla persona, non all'ambiente." },
+          { "livello": 2, "testo": "Riconosce la barriera ma non ne coglie le implicazioni." },
+          { "livello": 3, "testo": "Comprende che il servizio, non la persona, va riprogettato." },
+          { "livello": 4, "testo": "Rielabora l'esperienza in un impegno concreto per l'inclusione." }
+        ]
+      }
+    ]
+  }
+}

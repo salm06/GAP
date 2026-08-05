@@ -1,0 +1,20 @@
+/node_modules
+/.next
+/out
+/build
+next-env.d.ts
+npm-debug.log*
+.DS_Store
+*.pem
+.env*
+
+# Service worker generato da Serwist
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+
+# Cache di build TypeScript
+/tsconfig.tsbuildinfo
+
+# Skill dei plugin di Claude Code (tooling, non parte del progetto)
+/.claude/skills/

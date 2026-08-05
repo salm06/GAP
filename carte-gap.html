@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAP Card Game — Una commissione alla cieca</title>
+<style>
+  :root{
+    --setup:#111214;   --setup-acc:#F5B301;
+    --pensa:#FFC72C;
+    --fai:#FF7A30;
+    --capisci:#16B3AC;
+    --ink:#111214;
+    --paper:#ffffff;
+    --box:#efefef;
+    --muted:#8a8a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    background:#f4f4f5;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- intro ---------- */
+  .intro{
+    height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    gap:22px;padding:24px;
+  }
+  .intro .logo{
+    width:96px;height:96px;border-radius:50%;
+    background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:26px;letter-spacing:2px;font-family:"Courier New",monospace;
+  }
+  .intro h1{font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.05;max-width:14ch}
+  .intro p{color:#555;max-width:46ch;font-size:clamp(15px,2vw,18px);line-height:1.5}
+  .scroll-hint{
+    margin-top:8px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#999;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scroll-hint .arrow{width:22px;height:22px;border-right:2px solid #bbb;border-bottom:2px solid #bbb;
+    transform:rotate(45deg);animation:bob 1.4s infinite ease-in-out}
+  @keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.4}50%{transform:rotate(45deg) translate(4px,4px);opacity:1}}
+
+  /* ---------- scroll driven stage ---------- */
+  .track{position:relative}
+  .stage{
+    position:sticky;top:0;height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    perspective:1200px;perspective-origin:50% 45%;
+  }
+  .deck{position:relative;width:340px;height:480px;transform-style:preserve-3d}
+
+  .card{
+    position:absolute;inset:0;
+    transform-style:preserve-3d;
+    will-change:transform,opacity;
+    backface-visibility:visible;
+  }
+  .face{
+    position:absolute;inset:0;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+    border-radius:22px;overflow:hidden;
+    box-shadow:0 30px 60px -25px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.08);
+    display:flex;flex-direction:column;
+    background:var(--paper);
+  }
+  .face.back{transform:rotateY(180deg)}
+
+  /* front header */
+  .chead{
+    display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;
+    padding:16px 20px;color:#fff;
+  }
+  .chead .cat{font-weight:800;font-size:13px;letter-spacing:.16em}
+  .chead .time{
+    border:1.5px solid currentColor;border-radius:999px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;padding:5px 12px;white-space:nowrap;
+  }
+  .chead .num{font-weight:800;font-size:26px;line-height:1}
+
+  .cat-setup .chead{background:var(--setup)}
+  .cat-setup .chead .cat{color:var(--setup-acc)}
+  .cat-pensa .chead{background:var(--pensa);color:var(--ink)}
+  .cat-fai   .chead{background:var(--fai)}
+  .cat-capisci .chead{background:var(--capisci)}
+
+  .cbody{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;gap:12px}
+  .ctitle{font-size:21px;font-weight:800;line-height:1.12;letter-spacing:-.01em}
+  .cdesc{font-size:13.5px;line-height:1.5;color:#3a3a3a}
+  .cbox{margin-top:auto;background:var(--box);border-radius:14px;padding:14px 16px}
+  .cbox-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+  .cbox ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .cbox li{font-size:12px;line-height:1.4;color:#2a2a2a;padding-left:16px;position:relative}
+  .cbox li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%}
+  .cat-setup .cbox li::before{background:var(--setup-acc)}
+  .cat-pensa .cbox li::before{background:var(--pensa)}
+  .cat-fai   .cbox li::before{background:var(--fai)}
+  .cat-capisci .cbox li::before{background:var(--capisci)}
+
+  /* dark intro card (01) */
+  .card.dark .face.front{background:var(--setup);color:#fff}
+  .card.dark .ctitle{color:#fff}
+  .card.dark .cdesc{color:#c7c7c7}
+  .card.dark .cbox{background:#242528}
+  .card.dark .cbox li{color:#d8d8d8}
+
+  /* back face */
+  .back .bwrap{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:16px;padding:30px;
+  }
+  .back .glogo{
+    width:96px;height:96px;border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Courier New",monospace;font-weight:900;font-size:30px;letter-spacing:1px;color:#111;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+  }
+  .back .bcat{font-weight:800;font-size:24px;letter-spacing:.06em}
+  .back .bsub{font-size:12px;letter-spacing:.16em;font-weight:600;opacity:.85;text-transform:uppercase}
+  .back .bnum{font-weight:800;font-size:22px;margin-top:4px;opacity:.9}
+  .cat-setup   .back{background:var(--setup);color:#fff}
+  .cat-pensa   .back{background:var(--pensa);color:var(--ink)}
+  .cat-fai     .back{background:var(--fai);color:#fff}
+  .cat-capisci .back{background:var(--capisci);color:#fff}
+  .cat-pensa .back .glogo, .cat-fai .back .glogo, .cat-capisci .back .glogo{color:#111}
+
+  /* HUD */
+  .hud{position:fixed;left:0;right:0;bottom:0;pointer-events:none;padding:20px 24px;
+    display:flex;align-items:flex-end;justify-content:space-between;z-index:20}
+  .hud .phase{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+    background:rgba(255,255,255,.8);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px}
+  .hud .count{font-size:13px;font-weight:700;background:rgba(17,18,20,.85);color:#fff;
+    padding:8px 14px;border-radius:999px}
+  .pbar{position:fixed;top:0;left:0;height:4px;background:var(--pensa);width:0;z-index:30;transition:width .1s linear}
+
+  .outro{height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:24px;color:#777}
+  .outro p{font-size:14px;letter-spacing:.05em}
+
+  @media(max-width:420px){
+    .deck{width:300px;height:430px}
+    .ctitle{font-size:19px}
+  }
+</style>
+</head>
+<body>
+
+<div class="pbar" id="pbar"></div>
+
+<section class="intro">
+  <div class="logo">GAP</div>
+  <h1>Una commissione alla cieca</h1>
+  <p>Il mazzo da 20 carte per progettare una posta accessibile a chi non vede. Scorri per sfogliarlo: ogni carta gira dal retro al fronte.</p>
+  <div class="scroll-hint">Scorri<div class="arrow"></div></div>
+</section>
+
+<div class="track" id="track">
+  <div class="stage">
+    <div class="deck" id="deck"></div>
+  </div>
+</div>
+
+<div class="hud">
+  <div class="phase" id="phase">SETUP</div>
+  <div class="count" id="count">01 / 20</div>
+</div>
+
+<section class="outro">
+  <p>Fine del mazzo — GAP · Digital Education</p>
+</section>
+
+<script>
+const CARDS = [
+  {cat:"SETUP",cls:"setup",dark:true,time:"5H",num:"01",title:"UNA COMMISSIONE ALLA CIECA",
+   desc:"Design thinking, role playing e prototipazione rapida per progettare una posta accessibile a chi non vede.",
+   box:"IN SINTESI",items:["20 carte, 3 fasi: Pensa, Fai, Capisci.","5 ore in aula, classe di 20, gruppi da quattro.","Se non puoi contattare il testimone, salta le carte 09 e 18."]},
+  {cat:"SETUP",cls:"setup",time:"LEGGI PRIMA",num:"02",title:"COME SI USA IL MAZZO",
+   desc:"Le carte si seguono in ordine, non si pescano. Ogni carta è uno step con il suo tempo.",
+   box:"DA SAPERE",items:["Il badge in alto è il tempo per una classe di 20.","Il box grigio dà gli spunti operativi dello step.","5 ore in aula, o 5 sessioni da 60 minuti."]},
+  {cat:"SETUP",cls:"setup",time:"15 MIN",num:"03",title:"PRIMA DI INIZIARE",
+   desc:"Serve materiale povero e un'aula libera. Poi si spostano i banchi.",
+   box:"SULLA CATTEDRA",items:["Bende morbide, foglietti numerati, un timer.","Cartone, nastro, forbici, post-it, pennarelli.","Percorso libero da zaini, cavi e spigoli."]},
+  {cat:"PENSA",cls:"pensa",time:"15 MIN",num:"04",title:"COSA SERVE FARE IN POSTA",
+   desc:"Elencate ogni passaggio della commissione, dall'ingresso all'uscita. È la mappa su cui misurerete tutto.",
+   box:"NON DIMENTICATE",items:["Prendere il numero e capire quando tocca a te.","Trovare lo sportello giusto tra gli altri.","Compilare il modulo, pagare, ritirare la ricevuta."]},
+  {cat:"PENSA",cls:"pensa",time:"10 MIN",num:"05",title:"L'AULA DIVENTA UNA POSTA",
+   desc:"I banchi in fondo sono gli sportelli. Dietro, lo smistamento. Il resto è sala d'attesa.",
+   box:"ALLESTIMENTO",items:["3-4 sportelli, numeri grandi ma solo visivi.","Una voce chiama i turni: solo audio.","Gli operatori lavorano normalmente, non aiutano."]},
+  {cat:"PENSA",cls:"pensa",time:"5 MIN",num:"06",title:"PRIMA DI BENDARSI",
+   desc:"La benda serve a scoprire le barriere dell'ambiente, non a “capire come si vive da non vedenti”.",
+   box:"DILLO AD ALTA VOCE",items:["L'esperienza dura dieci minuti. La disabilità no.","Vietato ridere e vietato lasciare solo chi è bendato.","Chi non se la sente osserva: nessuno è obbligato."]},
+  {cat:"PENSA",cls:"pensa",time:"35 MIN",num:"07",title:"ATTRAVERSA L'AULA",
+   desc:"Cinque a turno si bendano, ricevono un numero e devono arrivare allo sportello giusto alla chiamata.",
+   box:"CON 20 ALUNNI",items:["5 bendati, 4 operatori, 6 allo smistamento.","Gli altri in attesa: fanno rumore, come nella realtà.","Un compagno a un passo, in silenzio, per la sicurezza."]},
+  {cat:"PENSA",cls:"pensa",time:"20 MIN",num:"08",title:"RACCONTA E OSSERVA",
+   desc:"Chi era bendato parla per primo, con la benda ancora addosso. Poi gli altri, e solo fatti.",
+   box:"REGISTRATE",items:["Quanti secondi per arrivare allo sportello.","Quante volte ha chiesto aiuto.","Quanti sportelli sbagliati prima di quello giusto."]},
+  {cat:"PENSA",cls:"pensa",time:"20 MIN",num:"09",title:"LA VOCE VERA",
+   desc:"Nessuna simulazione batte una testimonianza: venti minuti con una persona non vedente o un'associazione.",
+   box:"COSA CHIEDERE",items:["Come fai oggi questa commissione?","Cosa ti fa perdere più tempo?","Cosa ti hanno “risolto” senza chiedertelo?"]},
+  {cat:"PENSA",cls:"pensa",time:"25 MIN",num:"10",title:"LA BARRIERA NON È LA PERSONA",
+   desc:"Gruppi da quattro, con almeno un bendato ciascuno. Ogni blocco osservato va su un post-it.",
+   box:"RISCRIVETE COSÌ",items:["Non “non vede il numero”, ma “il turno è solo visivo”.","Non “si perde”, ma “il percorso non è segnalato”.","Non “chiede aiuto”, ma “l'informazione manca”."]},
+  {cat:"PENSA",cls:"pensa",time:"10 MIN",num:"11",title:"SCEGLIETE UNA BARRIERA",
+   desc:"Una sola, quella che si è ripetuta in tutti i turni. Poi scrivete la domanda guida e appendetela.",
+   box:"FORMULA",items:["Come possiamo fare in modo che...","...una persona non vedente possa...","...nonostante il turno sia annunciato solo a voce?"]},
+  {cat:"FAI",cls:"fai",time:"10 MIN",num:"12",title:"VENTI IDEE IN DIECI MINUTI",
+   desc:"Quantità prima della qualità: vietato criticare, vietato dire “non si può”.",
+   box:"REGOLE DEL GIRO",items:["Si scrive in silenzio, un'idea per post-it.","Si può copiare e migliorare l'idea di un altro.","Alla fine si legge tutto ad alta voce."]},
+  {cat:"FAI",cls:"fai",time:"15 MIN",num:"13",title:"CAMBIA SENSO",
+   desc:"Se un'informazione è visiva, riscrivetela in un altro senso.",
+   box:"PROVATE CON",items:["Voce, suono, vibrazione, rilievo, forma, temperatura.","Il numero della coda: come lo dici senza schermo?","Chi ha già risolto: in quale altro ambiente potrebbe funzionare?"]},
+  {cat:"FAI",cls:"fai",time:"10 MIN",num:"14",title:"SCEGLIETE CON TRE CRITERI",
+   desc:"Se l'idea salta anche un criterio solo, torna sul tavolo.",
+   box:"I TRE CRITERI",items:["Utile: risolve la barriera che avete scelto.","Realizzabile: si può provare oggi, in aula.","Non stigmatizzante: non fa notare chi la usa."]},
+  {cat:"FAI",cls:"fai",time:"30 MIN",num:"15",title:"BRUTTO E PRESTO",
+   desc:"Costruite solo la parte che le mani o le orecchie devono incontrare.",
+   box:"BASTANO",items:["Cartone e nastro per ciò che si tocca.","Il telefono per registrare le voci.","Trenta minuti. Se è bello, avete perso tempo."]},
+  {cat:"FAI",cls:"fai",time:"20 MIN",num:"16",title:"IL COPIONE",
+   desc:"Scrivete la scena: chi dice cosa, in che ordine, e cosa succede se la persona sbaglia strada.",
+   box:"SCRIVETELO COSÌ",items:["Frasi brevi: prima l'informazione, poi i dettagli.","“Sportello 3, alla tua destra” batte “prego, si accomodi”.","Prevedete l'errore: cosa dice il sistema se sbaglia?"]},
+  {cat:"CAPISCI",cls:"capisci",time:"20 MIN",num:"17",title:"SI RIAPRE LA POSTA",
+   desc:"Sportelli e smistamento tornano al loro posto. Chi era bendato rifà lo stesso percorso, col prototipo.",
+   box:"DURANTE IL TEST",items:["Il gruppo non parla, non aiuta, non corregge.","Se serve una spiegazione, il prototipo non funziona.","Stesso percorso e stesso cronometro di prima."]},
+  {cat:"CAPISCI",cls:"capisci",time:"20 MIN",num:"18",title:"TRE MISURE",
+   desc:"Confrontate con la prima volta, poi mostrate il prototipo alla persona intervistata.",
+   box:"ALLA LAVAGNA",items:["Secondi impiegati: prima e dopo.","Richieste di aiuto: prima e dopo.","Una sola correzione dopo il feedback, la più importante."]},
+  {cat:"CAPISCI",cls:"capisci",time:"15 MIN",num:"19",title:"PRESENTATE IN DUE MINUTI",
+   desc:"Due minuti a gruppo, senza slide. Con cinque gruppi sono dieci minuti.",
+   box:"DITE SOLO",items:["Chi è la persona e quale barriera avete scelto.","Cosa avete costruito, mostrandolo.","Come sono cambiati i tre numeri."]},
+  {cat:"CAPISCI",cls:"capisci",time:"15 MIN",num:"20",title:"COSA RESTA",
+   desc:"Debrief senza voti, poi un impegno concreto.",
+   box:"CHIUDETE CON",items:["Cosa hai capito che non sapevi prima di bendarti.","Cosa non diresti più come lo dicevi prima.","Una cosa da cambiare nella vostra scuola, entro un mese."]},
+];
+
+const PHASE_COLOR = {SETUP:"#F5B301",PENSA:"#FFC72C",FAI:"#FF7A30",CAPISCI:"#16B3AC"};
+
+const deck = document.getElementById('deck');
+const els = [];
+CARDS.forEach(c=>{
+  const li = c.items.map(t=>`<li>${t}</li>`).join('');
+  const card = document.createElement('div');
+  card.className = `card cat-${c.cls}` + (c.dark?' dark':'');
+  card.innerHTML = `
+    <div class="face front">
+      <div class="chead">
+        <span class="cat">${c.cat}</span>
+        <span class="time">${c.time}</span>
+        <span class="num">${c.num}</span>
+      </div>
+      <div class="cbody">
+        <h2 class="ctitle">${c.title}</h2>
+        <p class="cdesc">${c.desc}</p>
+        <div class="cbox">
+          <div class="cbox-label">${c.box}</div>
+          <ul>${li}</ul>
+        </div>
+      </div>
+    </div>
+    <div class="face back">
+      <div class="bwrap">
+        <div class="glogo">GAP</div>
+        <div class="bcat">${c.cat}</div>
+        <div class="bsub">Una commissione alla cieca</div>
+        <div class="bnum">${c.num}</div>
+      </div>
+    </div>`;
+  deck.appendChild(card);
+  els.push(card);
+});
+
+const track = document.getElementById('track');
+const N = CARDS.length;
+// each card gets ~85vh of scroll travel
+track.style.height = ((N + 1) * 85) + 'vh';
+
+const phaseEl = document.getElementById('phase');
+const countEl = document.getElementById('count');
+const pbar = document.getElementById('pbar');
+
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+// smootherstep: 0..1 with zero velocity at both ends (soft, non-linear)
+function smoother(x){x=clamp(x,0,1);return x*x*x*(x*(x*6-15)+10);}
+
+// Per-card timeline, driven by d = distance from centre.
+//  |d| < HOLD           -> flat, front, fully readable
+//  HOLD < |d| < VANISH  -> flips to back AND fades out together
+const HOLD = 0.30, VANISH = 0.62;
+
+function render(){
+  const rect = track.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const scrollable = track.offsetHeight - vh;
+  const scrolled = clamp(-rect.top, 0, scrollable);
+  const t = scrollable>0 ? (scrolled/scrollable) * (N-1) : 0; // 0 .. N-1
+
+  els.forEach((el,i)=>{
+    const d = t - i;                     // 0 = centred
+    const ad = Math.abs(d);
+    if(ad >= VANISH){ el.style.opacity = 0; el.style.visibility='hidden'; return; }
+    el.style.visibility = 'visible';
+
+    // 0 while the card holds flat, easing to 1 as it reaches the vanish edge
+    const p = smoother((ad - HOLD) / (VANISH - HOLD));   // 0..1
+    const dir = d < 0 ? 1 : -1;                          // enter from one side, leave to the other
+
+    const rotY = dir * p * 168;          // flip toward the back, eased
+    const tz   = -p * 240;               // recede in depth while flipping (3D, not flat)
+    const ty   = d * 26 + p * 8;         // gentle vertical parallax
+    const sc   = 1 - p * 0.10;           // slight shrink on the way out
+    const op   = 1 - smoother(p);        // fade tied to the flip, so the edge-on sliver never shows
+
+    el.style.opacity = op;
+    el.style.zIndex = Math.round(100 - ad*20);
+    el.style.transform =
+      `translate3d(0, ${ty}px, ${tz}px) scale(${sc}) rotateY(${rotY}deg)`;
+  });
+
+  const idx = clamp(Math.round(t),0,N-1);
+  const cur = CARDS[idx];
+  phaseEl.textContent = cur.cat;
+  phaseEl.style.color = PHASE_COLOR[cur.cat];
+  countEl.textContent = cur.num + ' / 20';
+  const glob = scrollable>0 ? clamp(scrolled/scrollable,0,1) : 0;
+  pbar.style.width = (glob*100)+'%';
+  pbar.style.background = PHASE_COLOR[cur.cat];
+}
+
+let ticking=false;
+function onScroll(){ if(!ticking){requestAnimationFrame(()=>{render();ticking=false;});ticking=true;} }
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',render);
+render();
+</script>
+</body>
+</html>

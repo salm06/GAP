@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Token del brand GAP — tema CHIARO.
+   Sfondo pagina chiaro con dots animati; le card degli step sono bianche.
+   UNICO punto da cambiare per la palette.
+   ============================================================ */
+:root {
+  --bg: #ecece7; /* sfondo pagina (chiaro) */
+  --ink: #1a1a1a; /* testo */
+  --muted: #6f6f6f;
+  --surface: #ffffff; /* rettangolo dello step */
+  --panel: #f4f4f1; /* pannelli annidati / chip inattivi */
+  --panel-line: rgba(0, 0, 0, 0.12);
+
+  --accent: #ffc700; /* giallo GAP (riempimenti) */
+  --accent-ink: #8a5b00; /* giallo scuro leggibile su bianco (testo) */
+  --deep: #8a5b00;
+  --fai: #ff842f; /* arancione */
+  --fai-ink: #c2450a;
+  --capisci: #00b8b5; /* teal */
+  --capisci-ink: #0a6b68;
+
+  /* badge metodologia (preview card lezioni) — un colore per metodo */
+  --metodo-design: #6c47d9; /* design thinking → viola */
+  --metodo-storytelling: #d6336c; /* digital storytelling → rosa */
+
+  /* stati semantici */
+  --stato-fatto: #00b8b5;
+  --stato-corrente: #ff842f;
+  --stato-dafare: rgba(0, 0, 0, 0.14);
+  --stato-ritardo: #c2450a;
+  --stato-anticipo: #8a5b00;
+
+  --font-body: var(--font-spline), "Inter", system-ui, sans-serif;
+  --font-head: var(--font-montserrat), system-ui, sans-serif;
+  --font-hand: var(--font-caveat), var(--font-spline), cursive;
+  /* Frase guida per chi conduce: font "More Sugar" (self-hosted via next/font/local). */
+  --font-guida: var(--font-moresugar), var(--font-hand), cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+}
+
+/* fondo pieno chiaro */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background: var(--bg);
+}
+/* trama a dots FISSA (nessuna animazione), scura e leggera su fondo chiaro.
+   Dietro a tutto (z-index negativo, sotto contenuto e barre). */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 0.9px, transparent 0.9px);
+  background-size: 26px 26px;
+}
+
+.font-head {
+  font-family: var(--font-head);
+}
+.font-hand {
+  font-family: var(--font-hand);
+}
+
+:focus-visible {
+  outline: 3px solid var(--fai);
+  outline-offset: 2px;
+}
+
+@media print {
+  .backdrop,
+  .grain,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #111;
+  }
+  .print-break {
+    page-break-inside: avoid;
+  }
+}
