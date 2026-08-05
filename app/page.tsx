@@ -17,11 +17,11 @@ const COLORE_METODO: Record<string, string> = {
 const classeMetodo = (metodologia: string) =>
   COLORE_METODO[metodologia.trim().toLowerCase()] ?? "bg-accent text-[#1A1A1A]";
 
-// Chip info scheda: bordo colorato (ciclo brand), senza titolo di riga.
+// Chip info scheda: sfondo pieno con i colori del brand.
 const CHIP_COLORI = [
-  "border-accent-ink text-accent-ink",
-  "border-fai-ink text-fai-ink",
-  "border-capisci-ink text-capisci-ink",
+  "bg-accent text-[#1A1A1A]",
+  "bg-fai text-[#1A1A1A]",
+  "bg-capisci text-[#1A1A1A]",
 ];
 
 export default function Home() {
@@ -156,7 +156,7 @@ export default function Home() {
                     .map((value, i) => (
                       <span
                         key={i}
-                        className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                        className={`rounded-full px-3 py-1 text-xs font-bold ${
                           CHIP_COLORI[i % CHIP_COLORI.length]
                         }`}
                       >
@@ -165,8 +165,8 @@ export default function Home() {
                     ))}
                 </div>
 
-                {/* Altre info come righe con titolo (stile "Possibile UDA con") */}
-                <dl className="mt-4 space-y-2.5">
+                {/* Altre info: titolo sopra, valore sotto */}
+                <dl className="mt-4 space-y-3">
                   {(
                     [
                       ["Tecnologia richiesta", a.tecnologiaRichiesta],
@@ -176,9 +176,11 @@ export default function Home() {
                   )
                     .filter(([, v]) => !!v)
                     .map(([label, value]) => (
-                      <div key={label} className="flex items-baseline justify-between gap-3">
-                        <dt className="shrink-0 text-xs text-muted">{label}</dt>
-                        <dd className="text-right text-xs font-bold text-ink">{value}</dd>
+                      <div key={label}>
+                        <dt className="text-[11px] font-semibold uppercase tracking-[.08em] text-muted">
+                          {label}
+                        </dt>
+                        <dd className="mt-0.5 text-sm font-bold text-ink">{value}</dd>
                       </div>
                     ))}
                 </dl>
