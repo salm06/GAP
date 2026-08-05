@@ -177,10 +177,8 @@ export default function Home() {
                     .filter(([, v]) => !!v)
                     .map(([label, value]) => (
                       <div key={label}>
-                        <dt className="text-[11px] font-semibold uppercase tracking-[.08em] text-muted">
-                          {label}
-                        </dt>
-                        <dd className="mt-0.5 text-sm font-bold text-ink">{value}</dd>
+                        <dt className="text-sm font-bold text-ink">{label}</dt>
+                        <dd className="mt-0.5 text-sm font-light text-muted">{value}</dd>
                       </div>
                     ))}
                 </dl>

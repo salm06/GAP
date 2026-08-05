@@ -6,7 +6,7 @@ import { RegistraSW } from "@/components/comune/RegistraSW";
 
 const spline = Spline_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-spline",
 });
 const montserrat = Montserrat({
