@@ -13,6 +13,7 @@ export type Elasticita = "essenziale" | "comprimibile" | "tagliabile";
 export type Attivita = {
   id: string;
   titolo: string;
+  descrizione?: string; // descrizione breve (~160 caratteri) mostrata sotto il titolo nella card
   materia: string;
   metodologia: string; // gamification | digital storytelling | PBL | ...
   durataTotaleMin: number; // durata pianificata, es. 100

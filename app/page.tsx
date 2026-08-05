@@ -24,6 +24,123 @@ const CHIP_COLORI = [
   "bg-capisci text-[#1A1A1A]",
 ];
 
+// Card di preview del kit: hero, titolo, descrizione, chip e "Altre info" (show/hide).
+function CardAttivita({ a }: { a: Attivita }) {
+  const [aperto, setAperto] = useState(false);
+  const chips = [
+    a.materia,
+    a.ordineScuola,
+    `${a.durataTotaleMin} min · ${a.step.length} fasi`,
+  ].filter((v): v is string => !!v);
+  const altre = (
+    [
+      ["Tecnologia richiesta", a.tecnologiaRichiesta],
+      ["Competenze target", a.competenzeTarget],
+      ["Possibile UDA con", a.possibileUdaCon],
+    ] as [string, string | undefined][]
+  ).filter(([, v]) => !!v);
+  const haBes = a.step.some((s) => s.adattamentoBes);
+
+  return (
+    <li className="group flex h-full flex-col overflow-hidden rounded-card border border-panel-line bg-surface transition-colors sm:hover:border-accent">
+      <Link href={`/attivita/${a.id}/prepara`} className="block active:bg-black/5">
+        {/* hero banner contestuale */}
+        <div className="relative aspect-[20/9] w-full overflow-hidden bg-panel">
+          {a.immagine ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={a.immagine}
+              alt=""
+              className="h-full w-full object-cover transition-transform duration-300 sm:group-hover:scale-105"
+            />
+          ) : (
+            <div className={`h-full w-full ${classeMetodo(a.metodologia).split(" ")[0]}`} />
+          )}
+          <span
+            className={`absolute left-3 top-3 inline-block w-fit rounded-full px-2.5 py-0.5 font-head text-[11px] font-bold uppercase tracking-wide shadow ring-1 ring-white/70 ${classeMetodo(
+              a.metodologia
+            )}`}
+          >
+            {a.metodologia}
+          </span>
+          {a.voto != null && (
+            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#1A1A1A] px-2.5 py-1 font-head text-[12px] font-black text-white shadow ring-1 ring-white/20">
+              {a.voto.toFixed(1)}
+              <span className="text-[10px] font-bold text-white/50">/ 10</span>
+            </span>
+          )}
+        </div>
+
+        {/* titolo + descrizione + chip */}
+        <div className="px-5 pt-5">
+          <p className="font-head text-xl font-extrabold text-ink">{a.titolo}</p>
+          {a.descrizione && (
+            <p className="mt-1.5 text-sm leading-snug text-muted">{a.descrizione}</p>
+          )}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {chips.map((value, i) => (
+              <span
+                key={i}
+                className={`rounded-full px-3 py-1 text-xs font-bold ${
+                  CHIP_COLORI[i % CHIP_COLORI.length]
+                }`}
+              >
+                {value}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Link>
+
+      {/* Altre info (show/hide) + badge BES — fuori dal Link per non navigare */}
+      <div className="mt-auto px-5 pb-5 pt-4">
+        {altre.length > 0 && (
+          <div>
+            <button
+              type="button"
+              onClick={() => setAperto((v) => !v)}
+              aria-expanded={aperto}
+              className="flex w-full items-center justify-between gap-2 text-sm font-bold text-ink active:opacity-70"
+            >
+              Altre info
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.4}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+                className={`transition-transform ${aperto ? "rotate-180" : ""}`}
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            {aperto && (
+              <dl className="mt-3 space-y-3">
+                {altre.map(([label, value]) => (
+                  <div key={label}>
+                    <dt className="text-sm font-bold text-ink">{label}</dt>
+                    <dd className="mt-0.5 text-sm font-light text-muted">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </div>
+        )}
+
+        {haBes && (
+          <div className="mt-4 flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
+            <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
 export default function Home() {
   const [attivita, setAttivita] = useState<Attivita[]>([]);
   const [sessioni, setSessioni] = useState<Sessione[]>([]);
@@ -111,87 +228,7 @@ export default function Home() {
       <h2 className="mt-10 font-head text-lg font-bold text-ink">Kit disponibili</h2>
       <ul className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2">
         {attivita.map((a) => (
-          <li key={a.id}>
-            <Link
-              href={`/attivita/${a.id}/prepara`}
-              className="group flex h-full flex-col overflow-hidden rounded-card border border-panel-line bg-surface transition-colors active:bg-black/5 sm:hover:border-accent"
-            >
-              {/* hero banner contestuale */}
-              <div className="relative aspect-[20/9] w-full overflow-hidden bg-panel">
-                {a.immagine ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={a.immagine}
-                    alt=""
-                    className="h-full w-full object-cover transition-transform duration-300 sm:group-hover:scale-105"
-                  />
-                ) : (
-                  <div className={`h-full w-full ${classeMetodo(a.metodologia).split(" ")[0]}`} />
-                )}
-                <span
-                  className={`absolute left-3 top-3 inline-block w-fit rounded-full px-2.5 py-0.5 font-head text-[11px] font-bold uppercase tracking-wide shadow ring-1 ring-white/70 ${classeMetodo(
-                    a.metodologia
-                  )}`}
-                >
-                  {a.metodologia}
-                </span>
-                {a.voto != null && (
-                  <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[#1A1A1A] px-2.5 py-1 font-head text-[12px] font-black text-white shadow ring-1 ring-white/20">
-                    {a.voto.toFixed(1)}
-                    <span className="text-[10px] font-bold text-white/50">/ 10</span>
-                  </span>
-                )}
-              </div>
-
-              <div className="flex flex-1 flex-col p-5">
-                <p className="font-head text-xl font-extrabold text-ink">{a.titolo}</p>
-                {/* Chip con bordo colorato: materia, classe, durata */}
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {[
-                    a.materia,
-                    a.ordineScuola,
-                    `${a.durataTotaleMin} min · ${a.step.length} fasi`,
-                  ]
-                    .filter((v): v is string => !!v)
-                    .map((value, i) => (
-                      <span
-                        key={i}
-                        className={`rounded-full px-3 py-1 text-xs font-bold ${
-                          CHIP_COLORI[i % CHIP_COLORI.length]
-                        }`}
-                      >
-                        {value}
-                      </span>
-                    ))}
-                </div>
-
-                {/* Altre info: titolo sopra, valore sotto */}
-                <dl className="mt-4 space-y-3">
-                  {(
-                    [
-                      ["Tecnologia richiesta", a.tecnologiaRichiesta],
-                      ["Competenze target", a.competenzeTarget],
-                      ["Possibile UDA con", a.possibileUdaCon],
-                    ] as [string, string | undefined][]
-                  )
-                    .filter(([, v]) => !!v)
-                    .map(([label, value]) => (
-                      <div key={label}>
-                        <dt className="text-sm font-bold text-ink">{label}</dt>
-                        <dd className="mt-0.5 text-sm font-light text-muted">{value}</dd>
-                      </div>
-                    ))}
-                </dl>
-
-                {/* Badge finale: adattamenti BES/DSA (se la lezione ne include) */}
-                {a.step.some((s) => s.adattamentoBes) && (
-                  <div className="mt-7 flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
-                    <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
-                  </div>
-                )}
-              </div>
-            </Link>
-          </li>
+          <CardAttivita key={a.id} a={a} />
         ))}
       </ul>
 
