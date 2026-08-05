@@ -165,7 +165,7 @@ export default function Home() {
 
                 {/* Badge finale: adattamenti BES/DSA (se la lezione ne include) */}
                 {a.step.some((s) => s.adattamentoBes) && (
-                  <div className="mt-auto flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
+                  <div className="mt-7 flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
                     <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
                   </div>
                 )}
