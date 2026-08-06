@@ -14,6 +14,7 @@ import { Timeline } from "./Timeline";
 import { BannerDeriva } from "./BannerDeriva";
 import { AzioneCorrente } from "./AzioneCorrente";
 import { SupportoInline } from "./SupportoInline";
+import { RisorseStep } from "./RisorseStep";
 import { Annota } from "./Annota";
 import { NavStep } from "./NavStep";
 import { AvvisoProiettore } from "@/components/comune/AvvisoProiettore";
@@ -283,6 +284,8 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
             />
 
             <div className="px-5 pb-5 sm:px-7 sm:pb-7">
+              <RisorseStep step={step} />
+
               {step.fallback && (
                 <div className="mt-6">
                   <button

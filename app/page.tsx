@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { repository } from "@/lib/repository";
-import type { Attivita, Sessione } from "@/lib/types";
+import { useRouter } from "next/navigation";
+import { repository, parseElencoAlunni } from "@/lib/repository";
+import type { Attivita, Classe, Sessione } from "@/lib/types";
 import { Logo } from "@/components/comune/Logo";
 import { Icona } from "@/components/comune/Icona";
 
@@ -24,9 +25,25 @@ const CHIP_COLORI = [
   "bg-capisci text-[#1A1A1A]",
 ];
 
-// Card di preview del kit: hero, titolo, descrizione, chip e "Altre info" (show/hide).
-function CardAttivita({ a }: { a: Attivita }) {
+// Card di preview del kit: hero, titolo, descrizione, chip, BES, "Altre info"
+// e, in fondo, selezione classe + avvio (così la classe non si può saltare).
+function CardAttivita({
+  a,
+  classi,
+  onClasseCreata,
+}: {
+  a: Attivita;
+  classi: Classe[];
+  onClasseCreata: (c: Classe) => void;
+}) {
+  const router = useRouter();
   const [aperto, setAperto] = useState(false);
+  const [matAperto, setMatAperto] = useState(false);
+  const [classeId, setClasseId] = useState<string | null>(null);
+  const [avviando, setAvviando] = useState(false);
+  const [nuovaAperta, setNuovaAperta] = useState(false);
+  const [nomeNuova, setNomeNuova] = useState("");
+  const [testoNuova, setTestoNuova] = useState("");
   const chips = [
     a.materia,
     a.ordineScuola,
@@ -41,9 +58,29 @@ function CardAttivita({ a }: { a: Attivita }) {
   ).filter(([, v]) => !!v);
   const haBes = a.step.some((s) => s.adattamentoBes);
 
+  // Avvia con la classe scelta: riusa la sessione in preparazione se esiste,
+  // vi imposta la classe e va direttamente a Conduci.
+  const avvia = async () => {
+    if (!classeId || avviando) return;
+    setAvviando(true);
+    try {
+      const esistenti = await repository.getSessioniPerAttivita(a.id);
+      let s = esistenti.find((x) => x.stato === "preparazione") ?? null;
+      if (s) {
+        s = { ...s, classeId };
+        await repository.aggiornaSessione(s);
+      } else {
+        s = await repository.creaSessione(a.id, classeId);
+      }
+      router.push(`/attivita/${a.id}/conduci?sessione=${s.id}`);
+    } catch {
+      setAvviando(false);
+    }
+  };
+
   return (
     <li className="group flex h-full flex-col overflow-hidden rounded-card border border-panel-line bg-surface transition-colors sm:hover:border-accent">
-      <Link href={`/attivita/${a.id}/prepara`} className="block active:bg-black/5">
+      <div className="block">
         {/* hero banner contestuale */}
         <div className="relative aspect-[20/9] w-full overflow-hidden bg-panel">
           {a.immagine ? (
@@ -90,12 +127,18 @@ function CardAttivita({ a }: { a: Attivita }) {
             ))}
           </div>
         </div>
-      </Link>
+      </div>
 
-      {/* Altre info (show/hide) + badge BES — fuori dal Link per non navigare */}
+      {/* BES → Altre info → Materiali → selezione classe + avvio */}
       <div className="mt-auto px-5 pb-5 pt-4">
+        {haBes && (
+          <div className="flex items-center gap-2 rounded-full bg-[#1A1A1A] px-4 py-2.5 font-head text-sm font-bold text-white">
+            <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
+          </div>
+        )}
+
         {altre.length > 0 && (
-          <div>
+          <div className="mt-4">
             <button
               type="button"
               onClick={() => setAperto((v) => !v)}
@@ -131,11 +174,162 @@ function CardAttivita({ a }: { a: Attivita }) {
           </div>
         )}
 
-        {haBes && (
-          <div className="mt-4 flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-head text-sm font-bold text-[#1A1A1A]">
-            <Icona nome="check" size={16} /> Adattamenti BES/DSA inclusi
+        {a.materialiNecessari.length > 0 && (
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => setMatAperto((v) => !v)}
+              aria-expanded={matAperto}
+              className="flex w-full items-center justify-between gap-2 text-sm font-bold text-ink active:opacity-70"
+            >
+              Materiali ({a.materialiNecessari.length})
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.4}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+                className={`transition-transform ${matAperto ? "rotate-180" : ""}`}
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            {matAperto && (
+              <ul className="mt-3 space-y-2">
+                {a.materialiNecessari.map((m) => (
+                  <li key={m.id} className="flex items-start gap-2 text-sm">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <span className="min-w-0 flex-1">
+                      <span className="text-ink">{m.descrizione}</span>
+                      <span className="ml-2 inline-flex flex-wrap items-center gap-2 align-middle text-xs">
+                        {m.critico && (
+                          <span className="rounded-full bg-[#1A1A1A] px-2 py-0.5 font-bold text-white">
+                            critico
+                          </span>
+                        )}
+                        <span className="rounded-full border border-panel-line px-2 py-0.5 text-muted">
+                          {m.tipo}
+                        </span>
+                        {m.link && (
+                          <a
+                            href={m.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-accent-ink underline"
+                          >
+                            Apri link
+                          </a>
+                        )}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
+
+        {/* Selezione classe (con "+ Nuova") + Inizia attività */}
+        <div className="mt-4 border-t border-panel-line pt-4">
+          <p className="mb-2 font-head text-[11px] font-bold uppercase tracking-wide text-accent-ink">
+            Scegli la classe
+          </p>
+
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <select
+                value={classeId ?? ""}
+                onChange={(e) => setClasseId(e.target.value || null)}
+                aria-label="Scegli la classe"
+                className="min-h-tap w-full appearance-none rounded-xl border border-panel-line bg-panel px-3 pr-9 text-sm font-semibold text-ink"
+              >
+                <option value="" disabled>
+                  Scegli una classe…
+                </option>
+                {classi.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.nome} · {c.alunni.length} alunni
+                  </option>
+                ))}
+              </select>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
+              >
+                ▾
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setNuovaAperta((v) => !v)}
+              aria-expanded={nuovaAperta}
+              className="min-h-tap shrink-0 rounded-xl border border-panel-line px-3 text-sm font-semibold text-ink active:bg-black/5"
+            >
+              + Nuova
+            </button>
+          </div>
+
+          {nuovaAperta && (
+            <div className="mt-2 rounded-2xl border border-panel-line bg-surface p-3">
+              <input
+                type="text"
+                placeholder="Nome classe (es. 2B Informatica)"
+                value={nomeNuova}
+                onChange={(e) => setNomeNuova(e.target.value)}
+                className="mb-2 min-h-tap w-full rounded-lg border border-panel-line bg-white px-3 text-base text-ink"
+              />
+              <textarea
+                placeholder={"Incolla i nomi, uno per riga.\nOppure CSV: Cognome,Nome"}
+                value={testoNuova}
+                onChange={(e) => setTestoNuova(e.target.value)}
+                rows={5}
+                className="w-full rounded-lg border border-panel-line bg-white p-3 text-base text-ink"
+              />
+              <p className="mt-1 text-xs text-muted">
+                {parseElencoAlunni(testoNuova).length} alunni riconosciuti
+              </p>
+              <button
+                type="button"
+                disabled={parseElencoAlunni(testoNuova).length === 0 || !nomeNuova.trim()}
+                onClick={async () => {
+                  const nuova = await repository.importaAlunniDaTesto(nomeNuova, testoNuova);
+                  onClasseCreata(nuova);
+                  setClasseId(nuova.id);
+                  setNuovaAperta(false);
+                  setNomeNuova("");
+                  setTestoNuova("");
+                }}
+                className="mt-2 min-h-tap w-full rounded-xl bg-accent px-4 py-2 text-sm font-bold text-[#1A1A1A] active:brightness-95 disabled:opacity-40"
+              >
+                Crea classe
+              </button>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={avvia}
+            disabled={!classeId || avviando}
+            className={[
+              "mt-3 flex min-h-tap w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-head text-base font-bold transition-colors",
+              classeId
+                ? "bg-accent text-[#1A1A1A] active:brightness-95"
+                : "cursor-not-allowed bg-panel text-muted",
+            ].join(" ")}
+          >
+            <Icona nome="play" size={16} />
+            {avviando ? "Avvio…" : "Inizia attività"}
+          </button>
+          {!classeId && (
+            <p className="mt-1 text-center text-xs text-fai-ink">
+              Seleziona una classe per iniziare
+            </p>
+          )}
+        </div>
       </div>
     </li>
   );
@@ -143,16 +337,19 @@ function CardAttivita({ a }: { a: Attivita }) {
 
 export default function Home() {
   const [attivita, setAttivita] = useState<Attivita[]>([]);
+  const [classi, setClassi] = useState<Classe[]>([]);
   const [sessioni, setSessioni] = useState<Sessione[]>([]);
   const [caricamento, setCaricamento] = useState(true);
   const [conferma, setConferma] = useState<Conferma | null>(null);
 
   const ricarica = useCallback(async () => {
-    const [lista, sess] = await Promise.all([
+    const [lista, cls, sess] = await Promise.all([
       repository.listAttivita(),
+      repository.listClassi(),
       repository.listSessioni(),
     ]);
     setAttivita(lista);
+    setClassi(cls);
     setSessioni(sess);
     setCaricamento(false);
   }, []);
@@ -193,9 +390,25 @@ export default function Home() {
         </span>
       </header>
 
-      <h1 className="font-head text-3xl font-black tracking-tight text-ink sm:text-5xl">
-        Le tue attività
-      </h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-head text-3xl font-black tracking-tight text-ink sm:text-5xl">
+          Le tue attività
+        </h1>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            className="min-h-tap rounded-full border border-panel-line px-4 py-2 font-head text-sm font-bold text-ink active:bg-black/5"
+          >
+            Biblioteca
+          </button>
+          <button
+            type="button"
+            className="min-h-tap rounded-full bg-[#1A1A1A] px-4 py-2 font-head text-sm font-bold text-white active:brightness-125"
+          >
+            Crea Attività
+          </button>
+        </div>
+      </div>
       <p className="mt-2 text-base text-muted">Conduci la lezione dal telefono, passo dopo passo.</p>
 
       {caricamento && <p className="mt-6 text-muted">Carico…</p>}
@@ -228,7 +441,12 @@ export default function Home() {
       <h2 className="mt-10 font-head text-lg font-bold text-ink">Kit disponibili</h2>
       <ul className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2">
         {attivita.map((a) => (
-          <CardAttivita key={a.id} a={a} />
+          <CardAttivita
+            key={a.id}
+            a={a}
+            classi={classi}
+            onClasseCreata={(c) => setClassi((prev) => [...prev, c])}
+          />
         ))}
       </ul>
 

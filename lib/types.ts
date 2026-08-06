@@ -39,6 +39,15 @@ export type Materiale = {
 
 export type Fase = "setup" | "pensa" | "fai" | "capisci";
 
+// Materiale pronto all'uso per il docente, apribile in una nuova scheda
+// (immagine da proiettare, documento, link). Generico: riutilizzabile su
+// qualunque step dove serva dare al docente qualcosa di pronto.
+export type Risorsa = {
+  label: string; // etichetta del pulsante, es. "Immagine di aggancio"
+  url: string; // path in /public (es. "/materiali/...") o URL esterno
+  tipo?: "immagine" | "documento" | "link";
+};
+
 export type Step = {
   id: string;
   titolo: string; // etichetta breve, usata come titolo (una riga) della card
@@ -53,6 +62,7 @@ export type Step = {
   elasticita: Elasticita;
   minutiRecuperabili: number; // quanto si può togliere senza romperlo
   fallback?: string; // variante analogica se la tecnologia non funziona
+  risorse?: Risorsa[]; // materiali pronti all'uso per il docente, aperti in nuova scheda
   osservabili: Osservabile[]; // chip di annotazione rapida di QUESTO step
 };
 

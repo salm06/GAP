@@ -69,10 +69,35 @@
       "durataMin": 8,
       "elasticita": "essenziale",
       "minutiRecuperabili": 2,
+      "risorse": [
+        {
+          "label": "Immagine di aggancio (proietta)",
+          "url": "/materiali/dante-aggancio-viaggiatore.jpg",
+          "tipo": "immagine"
+        }
+      ],
       "osservabili": [
-        { "id": "o-s1-1", "label": "Partecipano attivi", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s1-2", "label": "Colgono lo spunto", "criterioId": "c1", "livello": 3, "ambito": "classe" },
-        { "id": "o-s1-3", "label": "Faticano a entrare", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s1-1",
+          "label": "Partecipano attivi",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s1-2",
+          "label": "Colgono lo spunto",
+          "criterioId": "c1",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s1-3",
+          "label": "Faticano a entrare",
+          "criterioId": "c1",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -93,9 +118,27 @@
       "elasticita": "comprimibile",
       "minutiRecuperabili": 4,
       "osservabili": [
-        { "id": "o-s2-1", "label": "Seguono il testo", "criterioId": "c1", "livello": 3, "ambito": "classe" },
-        { "id": "o-s2-2", "label": "Ascolto attento", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s2-3", "label": "Si distraggono", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s2-1",
+          "label": "Seguono il testo",
+          "criterioId": "c1",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s2-2",
+          "label": "Ascolto attento",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s2-3",
+          "label": "Si distraggono",
+          "criterioId": "c2",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -118,9 +161,27 @@
       "elasticita": "essenziale",
       "minutiRecuperabili": 2,
       "osservabili": [
-        { "id": "o-s3-1", "label": "Colgono il senso", "criterioId": "c1", "livello": 4, "ambito": "classe" },
-        { "id": "o-s3-2", "label": "Argomentano bene", "criterioId": "c1", "livello": 4, "ambito": "classe" },
-        { "id": "o-s3-3", "label": "Confusione diffusa", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s3-1",
+          "label": "Colgono il senso",
+          "criterioId": "c1",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s3-2",
+          "label": "Argomentano bene",
+          "criterioId": "c1",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s3-3",
+          "label": "Confusione diffusa",
+          "criterioId": "c1",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -140,9 +201,27 @@
       "elasticita": "comprimibile",
       "minutiRecuperabili": 3,
       "osservabili": [
-        { "id": "o-s4-1", "label": "Si organizzano", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s4-2", "label": "Ruoli chiari", "criterioId": "c2", "livello": 4, "ambito": "classe" },
-        { "id": "o-s4-3", "label": "Fatica a dividersi", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s4-1",
+          "label": "Si organizzano",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s4-2",
+          "label": "Ruoli chiari",
+          "criterioId": "c2",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s4-3",
+          "label": "Fatica a dividersi",
+          "criterioId": "c2",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -165,9 +244,27 @@
       "elasticita": "essenziale",
       "minutiRecuperabili": 3,
       "osservabili": [
-        { "id": "o-s5-1", "label": "Idee creative", "criterioId": "c4", "livello": 4, "ambito": "classe" },
-        { "id": "o-s5-2", "label": "Collaborano bene", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s5-3", "label": "In difficoltà", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s5-1",
+          "label": "Idee creative",
+          "criterioId": "c4",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s5-2",
+          "label": "Collaborano bene",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s5-3",
+          "label": "In difficoltà",
+          "criterioId": "c4",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -188,9 +285,27 @@
       "elasticita": "comprimibile",
       "minutiRecuperabili": 4,
       "osservabili": [
-        { "id": "o-s6-1", "label": "Seguono la demo", "criterioId": "c3", "livello": 3, "ambito": "classe" },
-        { "id": "o-s6-2", "label": "Autonomi sullo strumento", "criterioId": "c3", "livello": 4, "ambito": "classe" },
-        { "id": "o-s6-3", "label": "Servono più spiegazioni", "criterioId": "c3", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s6-1",
+          "label": "Seguono la demo",
+          "criterioId": "c3",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s6-2",
+          "label": "Autonomi sullo strumento",
+          "criterioId": "c3",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s6-3",
+          "label": "Servono più spiegazioni",
+          "criterioId": "c3",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -213,9 +328,27 @@
       "elasticita": "essenziale",
       "minutiRecuperabili": 5,
       "osservabili": [
-        { "id": "o-s7-1", "label": "Padroneggiano Canva", "criterioId": "c3", "livello": 4, "ambito": "classe" },
-        { "id": "o-s7-2", "label": "Rielaborano bene", "criterioId": "c4", "livello": 4, "ambito": "classe" },
-        { "id": "o-s7-3", "label": "Copiano e basta", "criterioId": "c4", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s7-1",
+          "label": "Padroneggiano Canva",
+          "criterioId": "c3",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s7-2",
+          "label": "Rielaborano bene",
+          "criterioId": "c4",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s7-3",
+          "label": "Copiano e basta",
+          "criterioId": "c4",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -236,9 +369,27 @@
       "elasticita": "comprimibile",
       "minutiRecuperabili": 4,
       "osservabili": [
-        { "id": "o-s8-1", "label": "Espongono chiaro", "criterioId": "c1", "livello": 4, "ambito": "classe" },
-        { "id": "o-s8-2", "label": "Ascoltano i compagni", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s8-3", "label": "Presentazione confusa", "criterioId": "c1", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s8-1",
+          "label": "Espongono chiaro",
+          "criterioId": "c1",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s8-2",
+          "label": "Ascoltano i compagni",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s8-3",
+          "label": "Presentazione confusa",
+          "criterioId": "c1",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     },
     {
@@ -257,9 +408,27 @@
       "elasticita": "tagliabile",
       "minutiRecuperabili": 6,
       "osservabili": [
-        { "id": "o-s9-1", "label": "Riflessione profonda", "criterioId": "c1", "livello": 4, "ambito": "classe" },
-        { "id": "o-s9-2", "label": "Partecipano al debrief", "criterioId": "c2", "livello": 3, "ambito": "classe" },
-        { "id": "o-s9-3", "label": "Stanchi e distratti", "criterioId": "c2", "livello": 2, "ambito": "classe" }
+        {
+          "id": "o-s9-1",
+          "label": "Riflessione profonda",
+          "criterioId": "c1",
+          "livello": 4,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s9-2",
+          "label": "Partecipano al debrief",
+          "criterioId": "c2",
+          "livello": 3,
+          "ambito": "classe"
+        },
+        {
+          "id": "o-s9-3",
+          "label": "Stanchi e distratti",
+          "criterioId": "c2",
+          "livello": 2,
+          "ambito": "classe"
+        }
       ]
     }
   ],
@@ -270,10 +439,22 @@
         "nome": "Comprensione del testo dantesco",
         "competenzaMinisteriale": "Padroneggiare gli strumenti espressivi per la lettura di testi letterari",
         "descrittori": [
-          { "livello": 1, "testo": "Non coglie il senso letterale dell'episodio." },
-          { "livello": 2, "testo": "Coglie il senso letterale ma non il significato profondo." },
-          { "livello": 3, "testo": "Comprende senso e significato con qualche imprecisione." },
-          { "livello": 4, "testo": "Interpreta l'episodio cogliendone il valore simbolico." }
+          {
+            "livello": 1,
+            "testo": "Non coglie il senso letterale dell'episodio."
+          },
+          {
+            "livello": 2,
+            "testo": "Coglie il senso letterale ma non il significato profondo."
+          },
+          {
+            "livello": 3,
+            "testo": "Comprende senso e significato con qualche imprecisione."
+          },
+          {
+            "livello": 4,
+            "testo": "Interpreta l'episodio cogliendone il valore simbolico."
+          }
         ]
       },
       {
@@ -281,10 +462,22 @@
         "nome": "Collaborazione nel gruppo",
         "competenzaMinisteriale": "Competenze sociali e civiche",
         "descrittori": [
-          { "livello": 1, "testo": "Non partecipa al lavoro di gruppo." },
-          { "livello": 2, "testo": "Partecipa solo se sollecitato." },
-          { "livello": 3, "testo": "Collabora attivamente e rispetta i ruoli." },
-          { "livello": 4, "testo": "Coordina il gruppo e valorizza i compagni." }
+          {
+            "livello": 1,
+            "testo": "Non partecipa al lavoro di gruppo."
+          },
+          {
+            "livello": 2,
+            "testo": "Partecipa solo se sollecitato."
+          },
+          {
+            "livello": 3,
+            "testo": "Collabora attivamente e rispetta i ruoli."
+          },
+          {
+            "livello": 4,
+            "testo": "Coordina il gruppo e valorizza i compagni."
+          }
         ]
       },
       {
@@ -292,10 +485,22 @@
         "nome": "Competenza digitale",
         "competenzaMinisteriale": "Competenza digitale",
         "descrittori": [
-          { "livello": 1, "testo": "Non riesce a usare lo strumento in autonomia." },
-          { "livello": 2, "testo": "Usa lo strumento con l'aiuto costante del docente." },
-          { "livello": 3, "testo": "Usa Canva in autonomia per le funzioni base." },
-          { "livello": 4, "testo": "Sfrutta Canva con padronanza e aiuta i compagni." }
+          {
+            "livello": 1,
+            "testo": "Non riesce a usare lo strumento in autonomia."
+          },
+          {
+            "livello": 2,
+            "testo": "Usa lo strumento con l'aiuto costante del docente."
+          },
+          {
+            "livello": 3,
+            "testo": "Usa Canva in autonomia per le funzioni base."
+          },
+          {
+            "livello": 4,
+            "testo": "Sfrutta Canva con padronanza e aiuta i compagni."
+          }
         ]
       },
       {
@@ -303,10 +508,22 @@
         "nome": "Creatività e rielaborazione narrativa",
         "competenzaMinisteriale": "Consapevolezza ed espressione culturale",
         "descrittori": [
-          { "livello": 1, "testo": "Riproduce il testo senza rielaborarlo." },
-          { "livello": 2, "testo": "Rielabora in modo essenziale e prevedibile." },
-          { "livello": 3, "testo": "Rielabora l'episodio con soluzioni personali." },
-          { "livello": 4, "testo": "Trasforma l'episodio con originalità ed efficacia visiva." }
+          {
+            "livello": 1,
+            "testo": "Riproduce il testo senza rielaborarlo."
+          },
+          {
+            "livello": 2,
+            "testo": "Rielabora in modo essenziale e prevedibile."
+          },
+          {
+            "livello": 3,
+            "testo": "Rielabora l'episodio con soluzioni personali."
+          },
+          {
+            "livello": 4,
+            "testo": "Trasforma l'episodio con originalità ed efficacia visiva."
+          }
         ]
       }
     ]

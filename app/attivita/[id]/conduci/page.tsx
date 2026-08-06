@@ -6,7 +6,6 @@ export function generateStaticParams() {
   return ATTIVITA_STATIC_PARAMS;
 }
 
-export default async function ConduciPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  return <ConduciEntry id={id} />;
+export default function ConduciPage() {
+  return <ConduciEntry />;
 }
