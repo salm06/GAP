@@ -16,7 +16,9 @@ type Nome =
   | "esci"
   | "prossima"
   | "reset"
-  | "apri";
+  | "apri"
+  | "scarica"
+  | "cestino";
 
 const PATHS: Record<Nome, string> = {
   play: '<path d="M8 5v14l11-7z"/>',
@@ -37,6 +39,8 @@ const PATHS: Record<Nome, string> = {
   prossima: '<path d="M6 4l10 8-10 8zM18 4v16"/>',
   reset: '<path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/>',
   apri: '<path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/>',
+  scarica: '<path d="M12 3v11M8 10l4 4 4-4M5 21h14"/>',
+  cestino: '<path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 11v6M14 11v6"/>',
 };
 
 type Props = {

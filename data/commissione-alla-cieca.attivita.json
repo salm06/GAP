@@ -2,11 +2,13 @@
   "id": "commissione-alla-cieca",
   "titolo": "Una commissione alla cieca",
   "descrizione": "Design thinking in aula: bende, role playing e prototipi poveri per riprogettare un ufficio postale accessibile a chi non vede, dall'empatia al test.",
+  "obiettivo": "Riprogettare un servizio accessibile a chi non vede, passando dall'empatia al prototipo testato e maturando consapevolezza sull'inclusione.",
   "materia": "Educazione civica",
   "metodologia": "design thinking",
   "durataTotaleMin": 300,
   "immagine": "/hero/commissione-alla-cieca.jpg",
   "voto": 9.2,
+  "presentazione": "/materiali/commissione-presentazione.pptx",
   "ordineScuola": "Secondaria II grado",
   "competenzeTarget": "Progettazione inclusiva, empatia, problem solving",
   "tecnologiaRichiesta": "Materiali poveri, nessun account",
@@ -487,47 +489,28 @@
     "criteri": [
       {
         "id": "c1",
-        "nome": "Empatia e ascolto attivo",
-        "competenzaMinisteriale": "Competenze sociali e civiche",
-        "descrittori": [
-          { "livello": 1, "testo": "Non entra nell'esperienza e non ascolta i compagni." },
-          { "livello": 2, "testo": "Partecipa in modo superficiale, con poca attenzione all'altro." },
-          { "livello": 3, "testo": "Ascolta e mostra rispetto per il punto di vista di chi non vede." },
-          { "livello": 4, "testo": "Assume davvero la prospettiva dell'altro e ne coglie i bisogni." }
-        ]
+        "nome": "Valori e cittadinanza",
+        "competenzaMinisteriale": "Agire in riferimento ad un sistema di valori, coerenti con i principi della Costituzione, in base ai quali essere in grado di valutare fatti e orientare i propri comportamenti personali, sociali e professionali"
       },
       {
         "id": "c2",
-        "nome": "Collaborazione nel gruppo",
-        "competenzaMinisteriale": "Imparare a imparare · competenze sociali",
-        "descrittori": [
-          { "livello": 1, "testo": "Non partecipa al lavoro di gruppo." },
-          { "livello": 2, "testo": "Partecipa solo se sollecitato." },
-          { "livello": 3, "testo": "Collabora attivamente e rispetta i ruoli." },
-          { "livello": 4, "testo": "Coordina il gruppo e valorizza i compagni." }
-        ]
+        "nome": "Comunicazione visiva e multimediale",
+        "competenzaMinisteriale": "Individuare ed utilizzare le moderne forme di comunicazione visiva e multimediale, anche con riferimento alle strategie espressive e agli strumenti tecnici della comunicazione in rete"
       },
       {
         "id": "c3",
-        "nome": "Pensiero progettuale e problem solving",
-        "competenzaMinisteriale": "Spirito di iniziativa e imprenditorialità",
-        "descrittori": [
-          { "livello": 1, "testo": "Non individua il problema né propone soluzioni." },
-          { "livello": 2, "testo": "Coglie il problema ma resta su idee generiche." },
-          { "livello": 3, "testo": "Analizza la barriera e prototipa una soluzione realizzabile." },
-          { "livello": 4, "testo": "Definisce il problema e progetta soluzioni originali e verificabili." }
-        ]
+        "nome": "Processi e servizi",
+        "competenzaMinisteriale": "Comprendere e utilizzare i principali concetti relativi all'economia, all'organizzazione, allo svolgimento dei processi produttivi e dei servizi"
       },
       {
         "id": "c4",
-        "nome": "Consapevolezza dell'inclusione",
-        "competenzaMinisteriale": "Competenze in materia di cittadinanza",
-        "descrittori": [
-          { "livello": 1, "testo": "Attribuisce la difficoltà alla persona, non all'ambiente." },
-          { "livello": 2, "testo": "Riconosce la barriera ma non ne coglie le implicazioni." },
-          { "livello": 3, "testo": "Comprende che il servizio, non la persona, va riprogettato." },
-          { "livello": 4, "testo": "Rielabora l'esperienza in un impegno concreto per l'inclusione." }
-        ]
+        "nome": "Tutela della persona e sicurezza",
+        "competenzaMinisteriale": "Padroneggiare l'uso di strumenti tecnologici con particolare attenzione alla sicurezza e alla tutela della salute nei luoghi di vita e di lavoro, alla tutela della persona, dell'ambiente e del territorio"
+      },
+      {
+        "id": "c5",
+        "nome": "Assi culturali applicati",
+        "competenzaMinisteriale": "Utilizzare i concetti e i fondamentali strumenti degli assi culturali per comprendere la realtà ed operare in campi applicativi"
       }
     ]
   }

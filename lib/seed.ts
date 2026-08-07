@@ -18,6 +18,13 @@ const ATTIVITA_SEED: Attivita[] = [
 ];
 const CLASSI_SEED: Classe[] = [classe2b as Classe, classe3a as Classe];
 
+// Id delle attività del kit ufficiale: sono sola lettura nell'app (ri-seedate a
+// ogni avvio), quindi non modificabili/eliminabili dal flusso di gestione.
+const SEED_ATTIVITA_IDS = new Set(ATTIVITA_SEED.map((a) => a.id));
+export function isAttivitaSeed(id: string): boolean {
+  return SEED_ATTIVITA_IDS.has(id);
+}
+
 export async function seedSeNecessario(db: GapDatabase): Promise<void> {
   // Attività e classi seed vengono SEMPRE riallineate (hanno ID fissi):
   // così gli aggiornamenti ai kit propagano anche su un DB già inizializzato.

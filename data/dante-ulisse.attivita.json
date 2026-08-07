@@ -2,11 +2,13 @@
   "id": "dante-ulisse",
   "titolo": "Ulisse a fumetti — Inferno XXVI",
   "descrizione": "Digital storytelling sull'Inferno XXVI: dalla lettura all'analisi, ogni gruppo trasforma l'Ulisse di Dante in una striscia a fumetti creata in Canva.",
+  "obiettivo": "Comprendere l'Inferno XXVI cogliendone il valore simbolico e rielaborarlo in una striscia a fumetti che ne restituisca il senso.",
   "materia": "Italiano",
   "metodologia": "digital storytelling",
   "durataTotaleMin": 100,
   "immagine": "/hero/dante-ulisse.jpg",
   "voto": 8.7,
+  "presentazione": "/materiali/dante-ulisse-presentazione.pptx",
   "ordineScuola": "Secondaria II grado",
   "competenzeTarget": "Comprensione del testo, rielaborazione creativa",
   "tecnologiaRichiesta": "Un dispositivo per gruppo, Canva (facoltativo)",
@@ -47,7 +49,7 @@
       "id": "m6",
       "descrizione": "Immagine di aggancio: un viaggiatore di spalle verso l'orizzonte",
       "tipo": "digitale",
-      "link": "https://www.canva.com/",
+      "download": "/materiali/dante-aggancio-viaggiatore.jpg",
       "critico": false
     }
   ],
@@ -436,95 +438,28 @@
     "criteri": [
       {
         "id": "c1",
-        "nome": "Comprensione del testo dantesco",
-        "competenzaMinisteriale": "Padroneggiare gli strumenti espressivi per la lettura di testi letterari",
-        "descrittori": [
-          {
-            "livello": 1,
-            "testo": "Non coglie il senso letterale dell'episodio."
-          },
-          {
-            "livello": 2,
-            "testo": "Coglie il senso letterale ma non il significato profondo."
-          },
-          {
-            "livello": 3,
-            "testo": "Comprende senso e significato con qualche imprecisione."
-          },
-          {
-            "livello": 4,
-            "testo": "Interpreta l'episodio cogliendone il valore simbolico."
-          }
-        ]
+        "nome": "Lingua italiana",
+        "competenzaMinisteriale": "Utilizzare il patrimonio lessicale ed espressivo della lingua italiana secondo le esigenze comunicative nei vari contesti: sociali, culturali, scientifici, economici, tecnologici e professionali"
       },
       {
         "id": "c2",
-        "nome": "Collaborazione nel gruppo",
-        "competenzaMinisteriale": "Competenze sociali e civiche",
-        "descrittori": [
-          {
-            "livello": 1,
-            "testo": "Non partecipa al lavoro di gruppo."
-          },
-          {
-            "livello": 2,
-            "testo": "Partecipa solo se sollecitato."
-          },
-          {
-            "livello": 3,
-            "testo": "Collabora attivamente e rispetta i ruoli."
-          },
-          {
-            "livello": 4,
-            "testo": "Coordina il gruppo e valorizza i compagni."
-          }
-        ]
+        "nome": "Collegamenti culturali",
+        "competenzaMinisteriale": "Stabilire collegamenti tra le tradizioni culturali locali, nazionali ed internazionali, sia in una prospettiva interculturale sia ai fini della mobilità di studio e di lavoro"
       },
       {
         "id": "c3",
-        "nome": "Competenza digitale",
-        "competenzaMinisteriale": "Competenza digitale",
-        "descrittori": [
-          {
-            "livello": 1,
-            "testo": "Non riesce a usare lo strumento in autonomia."
-          },
-          {
-            "livello": 2,
-            "testo": "Usa lo strumento con l'aiuto costante del docente."
-          },
-          {
-            "livello": 3,
-            "testo": "Usa Canva in autonomia per le funzioni base."
-          },
-          {
-            "livello": 4,
-            "testo": "Sfrutta Canva con padronanza e aiuta i compagni."
-          }
-        ]
+        "nome": "Beni artistici",
+        "competenzaMinisteriale": "Riconoscere il valore e le potenzialità dei beni artistici e ambientali"
       },
       {
         "id": "c4",
-        "nome": "Creatività e rielaborazione narrativa",
-        "competenzaMinisteriale": "Consapevolezza ed espressione culturale",
-        "descrittori": [
-          {
-            "livello": 1,
-            "testo": "Riproduce il testo senza rielaborarlo."
-          },
-          {
-            "livello": 2,
-            "testo": "Rielabora in modo essenziale e prevedibile."
-          },
-          {
-            "livello": 3,
-            "testo": "Rielabora l'episodio con soluzioni personali."
-          },
-          {
-            "livello": 4,
-            "testo": "Trasforma l'episodio con originalità ed efficacia visiva."
-          }
-        ]
+        "nome": "Comunicazione visiva e multimediale",
+        "competenzaMinisteriale": "Individuare ed utilizzare le moderne forme di comunicazione visiva e multimediale, anche con riferimento alle strategie espressive e agli strumenti tecnici della comunicazione in rete"
+      },
+      {
+        "id": "c5",
+        "nome": "Strumenti informatici",
+        "competenzaMinisteriale": "Utilizzare le reti e gli strumenti informatici nelle attività di studio, ricerca e approfondimento"
       }
     ]
   }

@@ -6,7 +6,7 @@ import { useSessione } from "@/lib/hooks/useSessione";
 import { useCronometro } from "@/lib/hooks/useCronometro";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { applicaSuggerimento, calcolaDeriva, inPausa, oraVirtuale } from "@/lib/tempo";
-import type { Annotazione, Livello, Sessione } from "@/lib/types";
+import type { Annotazione, Sessione, Voto } from "@/lib/types";
 import { repository } from "@/lib/repository";
 
 import { BarraStato } from "./BarraStato";
@@ -131,7 +131,7 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
       return { ...s, tempiReali: tempi, stato: "conclusa", pausaDa: undefined };
     });
     await repository.flushSync();
-    router.push(`/attivita/${sessione.attivitaId}/rivedi?sessione=${sessione.id}`);
+    router.push(`/rivedi?sessione=${sessione.id}`);
   }, [sessione, patch, router]);
 
   const accettaDeriva = useCallback(() => {
@@ -139,9 +139,9 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
     patch((s) => applicaSuggerimento(s, attivita, deriva.suggerimento!));
   }, [attivita, deriva, patch]);
 
-  // --- Valutazioni (1..5) e note ---
+  // --- Valutazioni (A–E) e note ---
   const valutaClasse = useCallback(
-    (osservabileId: string, valore: Livello | null) => {
+    (osservabileId: string, valore: Voto | null) => {
       if (!step) return;
       patch((s) => {
         const senza = s.annotazioni.filter(
@@ -169,7 +169,7 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
   );
 
   const valutaAlunno = useCallback(
-    (alunnoId: string, osservabileId: string, valore: Livello | null) => {
+    (alunnoId: string, osservabileId: string, valore: Voto | null) => {
       if (!step) return;
       patch((s) => {
         const senza = s.annotazioni.filter(
@@ -240,7 +240,7 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
       <div className="p-6 text-center">
         <p className="text-ink">Questa sessione è conclusa.</p>
         <button
-          onClick={() => router.push(`/attivita/${attivita.id}/rivedi?sessione=${sessione.id}`)}
+          onClick={() => router.push(`/rivedi?sessione=${sessione.id}`)}
           className="mt-3 text-fai-ink underline"
         >
           Vai a Rivedi
@@ -338,6 +338,8 @@ export function ConduciClient({ sessioneId }: { sessioneId: string }) {
             <Annota
               step={step}
               classe={classe}
+              criteri={attivita.griglia.criteri}
+              gruppi={sessione.gruppi}
               annotazioni={sessione.annotazioni}
               onValutaClasse={valutaClasse}
               onValutaAlunno={valutaAlunno}

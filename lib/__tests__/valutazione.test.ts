@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
-import {
-  aggregaCella,
-  arrotondaLivello,
-  costruisciMatrice,
-  indicizzaOsservabili,
-  riepilogoClasse,
-} from "../valutazione";
+import { aggregaCella, costruisciMatrice, riepilogoClasse } from "../valutazione";
+import { mediaVoti } from "../voti";
 import type { Annotazione, Attivita, Classe } from "../types";
 
 function attivita(): Attivita {
@@ -25,17 +20,13 @@ function attivita(): Attivita {
         durataMin: 10,
         elasticita: "essenziale",
         minutiRecuperabili: 0,
-        osservabili: [
-          { id: "o1", label: "Colgono il senso", criterioId: "c1" },
-          { id: "o2", label: "Argomentano", criterioId: "c1" },
-          { id: "o3", label: "Collaborano", criterioId: "c2" },
-        ],
+        osservabili: [],
       },
     ],
     griglia: {
       criteri: [
-        { id: "c1", nome: "Comprensione", descrittori: [] },
-        { id: "c2", nome: "Collaborazione", descrittori: [] },
+        { id: "c1", nome: "Lingua italiana" },
+        { id: "c2", nome: "Comunicazione visiva" },
       ],
     },
   };
@@ -60,67 +51,65 @@ function ann(over: Partial<Annotazione>): Annotazione {
   };
 }
 
-describe("arrotondaLivello", () => {
-  it("ritorna null senza valori (nessun default)", () => {
-    expect(arrotondaLivello([])).toBeNull();
+describe("mediaVoti", () => {
+  it("ritorna null senza voti (nessun default)", () => {
+    expect(mediaVoti([])).toBeNull();
   });
-  it("arrotonda la media (round half-up) e resta nel range 1..5", () => {
-    expect(arrotondaLivello([5, 2])).toBe(4); // 3.5 → 4
-    expect(arrotondaLivello([5, 5, 5])).toBe(5);
-    expect(arrotondaLivello([1, 1, 2])).toBe(1);
-    expect(arrotondaLivello([4, 5])).toBe(5);
+  it("media A..E (A = alto) con round half-up", () => {
+    expect(mediaVoti(["A", "C"])).toBe("B"); // (5+3)/2 = 4 → B
+    expect(mediaVoti(["A", "A", "A"])).toBe("A");
+    expect(mediaVoti(["E", "E", "D"])).toBe("E"); // 1.33 → E
+    expect(mediaVoti(["B", "A"])).toBe("A"); // 4.5 → 5 → A
   });
 });
 
 describe("aggregaCella", () => {
-  it("aggrega solo le valutazioni del singolo alunno per quel criterio", () => {
-    const osservabili = indicizzaOsservabili(attivita());
+  it("aggrega solo i voti del singolo alunno per quella competenza (anche su più step)", () => {
     const annotazioni = [
-      ann({ alunnoId: "a1", osservabileId: "o1", valore: 5 }), // c1
-      ann({ alunnoId: "a1", osservabileId: "o2", valore: 3 }), // c1
-      ann({ alunnoId: "a1", osservabileId: "o3", valore: 4 }), // c2 → non conta per c1
-      ann({ alunnoId: "a2", osservabileId: "o1", valore: 2 }), // altro alunno
-      ann({ osservabileId: "o1", valore: 1 }), // classe → non conta per la cella
+      ann({ alunnoId: "a1", osservabileId: "c1", valore: "A" }),
+      ann({ alunnoId: "a1", osservabileId: "c1", valore: "C", stepId: "s2" }), // altro step, stessa competenza
+      ann({ alunnoId: "a1", osservabileId: "c2", valore: "A" }), // altra competenza → non conta
+      ann({ alunnoId: "a2", osservabileId: "c1", valore: "E" }), // altro alunno
+      ann({ osservabileId: "c1", valore: "E" }), // classe → non conta per la cella
     ];
-    const cella = aggregaCella(annotazioni, "a1", "c1", osservabili);
-    expect(cella.livelloSuggerito).toBe(4); // media(5,3)=4
+    const cella = aggregaCella(annotazioni, "a1", "c1");
+    expect(cella.livelloSuggerito).toBe("B"); // media(A,C) = B
     expect(cella.numOsservazioni).toBe(2);
   });
 
   it("cella vuota (null) se l'alunno non è stato valutato", () => {
-    const osservabili = indicizzaOsservabili(attivita());
-    const cella = aggregaCella([], "a2", "c1", osservabili);
+    const cella = aggregaCella([], "a2", "c1");
     expect(cella.livelloSuggerito).toBeNull();
     expect(cella.numOsservazioni).toBe(0);
   });
 });
 
 describe("costruisciMatrice", () => {
-  it("produce una cella per ogni alunno × criterio", () => {
+  it("produce una cella per ogni alunno × competenza", () => {
     const annotazioni = [
-      ann({ alunnoId: "a1", osservabileId: "o1", valore: 5 }),
-      ann({ alunnoId: "a1", osservabileId: "o3", valore: 4 }),
+      ann({ alunnoId: "a1", osservabileId: "c1", valore: "A" }),
+      ann({ alunnoId: "a1", osservabileId: "c2", valore: "B" }),
     ];
     const matrice = costruisciMatrice(attivita(), classe, annotazioni);
     expect(matrice).toHaveLength(2 * 2);
     const a1c1 = matrice.find((c) => c.alunnoId === "a1" && c.criterioId === "c1");
-    expect(a1c1?.livelloSuggerito).toBe(5);
+    expect(a1c1?.livelloSuggerito).toBe("A");
     const a2c1 = matrice.find((c) => c.alunnoId === "a2" && c.criterioId === "c1");
     expect(a2c1?.livelloSuggerito).toBeNull();
   });
 });
 
 describe("riepilogoClasse", () => {
-  it("usa solo le valutazioni di CLASSE (senza alunnoId)", () => {
+  it("usa solo i voti di CLASSE (senza alunnoId)", () => {
     const annotazioni = [
-      ann({ osservabileId: "o1", valore: 4 }), // classe, c1
-      ann({ osservabileId: "o2", valore: 3 }), // classe, c1
-      ann({ alunnoId: "a1", osservabileId: "o1", valore: 1 }), // alunno → ignorato
+      ann({ osservabileId: "c1", valore: "A" }), // classe, c1
+      ann({ osservabileId: "c1", valore: "C", stepId: "s2" }), // classe, c1, altro step
+      ann({ alunnoId: "a1", osservabileId: "c1", valore: "E" }), // alunno → ignorato
     ];
     const r = riepilogoClasse(attivita(), annotazioni);
     const c1 = r.find((x) => x.criterioId === "c1");
     expect(c1?.numOsservazioni).toBe(2);
-    expect(c1?.livelloMedio).toBe(4); // media(4,3)=3.5 → 4
+    expect(c1?.livelloMedio).toBe("B"); // media(A,C) = B
     const c2 = r.find((x) => x.criterioId === "c2");
     expect(c2?.livelloMedio).toBeNull();
   });

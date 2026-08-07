@@ -3,21 +3,28 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { repository } from "@/lib/repository";
-import type { Attivita, Classe, Livello, Sessione } from "@/lib/types";
-import { costruisciMatrice, indicizzaOsservabili, riepilogoClasse } from "@/lib/valutazione";
+import type { Attivita, Classe, Sessione, Voto } from "@/lib/types";
+import { costruisciMatrice, riepilogoClasse } from "@/lib/valutazione";
+import { LEGENDA_VOTI } from "@/lib/voti";
 import { durataEffettivaStep } from "@/lib/tempo";
 import { esportaTempiCSV, esportaValutazioneCSV, stampaPdf } from "@/lib/export";
 import { Bottone } from "@/components/ui/Bottone";
 import { Logo } from "@/components/comune/Logo";
+import { Annota } from "@/components/conduci/Annota";
 import { GrigliaValutazione } from "./GrigliaValutazione";
 
 const MIN = 60_000;
+
+function nuovoIdAnn() {
+  return `ann-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+}
 
 export function RivediClient({ sessioneId }: { sessioneId: string }) {
   const [sessione, setSessione] = useState<Sessione | null>(null);
   const [attivita, setAttivita] = useState<Attivita | null>(null);
   const [classe, setClasse] = useState<Classe | null>(null);
   const [caricamento, setCaricamento] = useState(true);
+  const [stepSelId, setStepSelId] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -67,9 +74,9 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
     );
 
   const override = sessione.valutazioneOverride ?? {};
-  const setLivello = (alunnoId: string, criterioId: string, livello: Livello | null) =>
+  const setLivello = (alunnoId: string, criterioId: string, livello: Voto | null) =>
     patch((s) => {
-      const ov: Record<string, Record<string, Livello>> = { ...(s.valutazioneOverride ?? {}) };
+      const ov: Record<string, Record<string, Voto>> = { ...(s.valutazioneOverride ?? {}) };
       const perAlunno = { ...(ov[alunnoId] ?? {}) };
       if (livello == null) delete perAlunno[criterioId];
       else perAlunno[criterioId] = livello;
@@ -77,11 +84,67 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
       return { ...s, valutazioneOverride: ov };
     });
 
-  const osservabili = indicizzaOsservabili(attivita);
-  const nomeOsservabile = (osservabileId?: string) =>
-    osservabileId ? osservabili.get(osservabileId)?.label ?? "" : "";
+  // --- Modifica annotazioni per step (stessa logica di Conduci, riusa <Annota/>) ---
+  const stepSel = attivita.step.find((s) => s.id === stepSelId) ?? attivita.step[0];
+
+  const valutaClasseStep = (critId: string, valore: Voto | null) =>
+    patch((s) => {
+      const senza = s.annotazioni.filter(
+        (a) =>
+          !(
+            a.tipo === "valutazione" &&
+            a.stepId === stepSel.id &&
+            a.osservabileId === critId &&
+            a.alunnoId == null
+          )
+      );
+      if (valore == null) return { ...s, annotazioni: senza };
+      return {
+        ...s,
+        annotazioni: [
+          ...senza,
+          { id: nuovoIdAnn(), stepId: stepSel.id, timestamp: Date.now(), tipo: "valutazione", osservabileId: critId, valore },
+        ],
+      };
+    });
+
+  const valutaAlunnoStep = (alunnoId: string, critId: string, valore: Voto | null) =>
+    patch((s) => {
+      const senza = s.annotazioni.filter(
+        (a) =>
+          !(
+            a.tipo === "valutazione" &&
+            a.stepId === stepSel.id &&
+            a.osservabileId === critId &&
+            a.alunnoId === alunnoId
+          )
+      );
+      if (valore == null) return { ...s, annotazioni: senza };
+      return {
+        ...s,
+        annotazioni: [
+          ...senza,
+          { id: nuovoIdAnn(), stepId: stepSel.id, timestamp: Date.now(), tipo: "valutazione", osservabileId: critId, alunnoId, valore },
+        ],
+      };
+    });
+
+  const notaAlunnoStep = (alunnoId: string, testo: string) =>
+    patch((s) => {
+      const senza = s.annotazioni.filter(
+        (a) => !(a.tipo === "testo" && a.stepId === stepSel.id && a.alunnoId === alunnoId)
+      );
+      if (!testo) return { ...s, annotazioni: senza };
+      return {
+        ...s,
+        annotazioni: [
+          ...senza,
+          { id: nuovoIdAnn(), stepId: stepSel.id, timestamp: Date.now(), tipo: "testo", alunnoId, contenuto: testo },
+        ],
+      };
+    });
+
   const nomeCriterio = (id: string) => attivita.griglia.criteri.find((c) => c.id === id)?.nome ?? id;
-  const nomeStep = (id: string) => attivita.step.find((s) => s.id === id)?.titolo ?? id;
 
   const durataRealeMin = Math.round(
     sessione.tempiReali.reduce((acc, t) => acc + (t.fine ? t.fine - t.inizio : 0), 0) / MIN
@@ -90,27 +153,6 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
   const alunniOsservati = new Set(
     sessione.annotazioni.filter((a) => a.alunnoId).map((a) => a.alunnoId)
   ).size;
-
-  // Voti di classe (per caratteristica) + note vocali
-  const votiClasse = sessione.annotazioni
-    .filter((a) => a.tipo === "valutazione" && a.alunnoId == null && a.valore != null)
-    .map((a) => ({
-      id: a.id,
-      label: nomeOsservabile(a.osservabileId),
-      step: nomeStep(a.stepId),
-      valore: a.valore as number,
-    }));
-  const noteVocali = sessione.annotazioni.filter((a) => a.tipo === "vocale");
-
-  // Per alunno: voti individuali + note di testo
-  const perAlunno = (classe?.alunni ?? [])
-    .map((al) => ({
-      alunno: al,
-      note: sessione.annotazioni
-        .filter((a) => a.alunnoId === al.id && (a.tipo === "testo" || a.tipo === "valutazione"))
-        .sort((x, y) => x.timestamp - y.timestamp),
-    }))
-    .filter((x) => x.note.length > 0);
 
   const card = "rounded-2xl border border-panel-line bg-surface";
   const dataStr = new Date(sessione.avviataAlle).toLocaleDateString("it-IT");
@@ -176,9 +218,57 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
         </ul>
       </section>
 
-      {/* Valutazione */}
+      {/* Modifica annotazioni per step: rivedi/correggi voti e note inseriti in corso */}
+      <section className="no-print mt-8">
+        <h2 className="mb-1 font-head text-lg font-bold text-ink">Annotazioni per step</h2>
+        <p className="mb-3 text-sm text-muted">
+          Seleziona uno step per rivedere e correggere voti e note inseriti durante l&apos;attività.
+          La griglia di valutazione si aggiorna in automatico ad ogni modifica salvata.
+        </p>
+        <div className="relative mb-4 max-w-md">
+          <select
+            value={stepSel.id}
+            onChange={(e) => setStepSelId(e.target.value)}
+            aria-label="Scegli lo step"
+            className="min-h-tap w-full appearance-none rounded-xl border border-panel-line bg-panel px-3 pr-9 text-sm font-semibold text-ink"
+          >
+            {attivita.step.map((s, i) => (
+              <option key={s.id} value={s.id}>
+                {i + 1}. {s.titolo}
+              </option>
+            ))}
+          </select>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
+          >
+            ▾
+          </span>
+        </div>
+        <Annota
+          key={stepSel.id}
+          step={stepSel}
+          classe={classe}
+          criteri={attivita.griglia.criteri}
+          gruppi={sessione.gruppi}
+          annotazioni={sessione.annotazioni}
+          onValutaClasse={valutaClasseStep}
+          onValutaAlunno={valutaAlunnoStep}
+          onNotaAlunno={notaAlunnoStep}
+        />
+      </section>
+
+      {/* Valutazione: la griglia si aggiorna in automatico dopo le modifiche per step */}
       <section className="mt-8 print-break">
-        <h2 className="mb-2 font-head text-lg font-bold text-ink">Valutazione della classe</h2>
+        <h2 className="mb-1 font-head text-lg font-bold text-ink">Valutazione delle competenze</h2>
+        {/* Legenda scala A–E */}
+        <div className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted">
+          {LEGENDA_VOTI.map((l) => (
+            <span key={l.voto}>
+              <span className="font-bold text-ink">{l.voto}</span> {l.label}
+            </span>
+          ))}
+        </div>
         <div className="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
           {riepilogo.map((r) => (
             <div key={r.criterioId} className={`${card} flex items-center justify-between px-3 py-2`}>
@@ -186,7 +276,7 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
               <span className="flex items-center gap-2">
                 {r.livelloMedio != null ? (
                   <span className="rounded-md bg-accent px-2 py-0.5 text-sm font-bold text-[#1A1A1A]">
-                    liv. {r.livelloMedio}
+                    {r.livelloMedio}
                   </span>
                 ) : (
                   <span className="text-xs text-muted">non osservato</span>
@@ -198,8 +288,8 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
         </div>
 
         <p className="mb-3 text-xs text-muted">
-          Livelli suggeriti dalle osservazioni raccolte. Le celle vuote non sono mai riempite
-          d&apos;ufficio: correggile o completale con un tocco.
+          Voti (A–E) suggeriti dalle competenze osservate durante gli step. Le celle vuote non sono
+          mai riempite d&apos;ufficio: completale o correggile a mano con un tocco.
         </p>
         {classe ? (
           <GrigliaValutazione
@@ -207,75 +297,11 @@ export function RivediClient({ sessioneId }: { sessioneId: string }) {
             classe={classe}
             celle={celle}
             override={override}
+            gruppi={sessione.gruppi}
             onSetLivello={setLivello}
           />
         ) : (
           <p className="text-muted">Nessuna classe collegata: griglia non disponibile.</p>
-        )}
-      </section>
-
-      {/* Voti e note di classe */}
-      <section className="mt-8 print-break">
-        <h2 className="mb-2 font-head text-lg font-bold text-ink">Voti e note della classe</h2>
-        {votiClasse.length === 0 && noteVocali.length === 0 ? (
-          <p className="text-sm text-muted">Nessuna valutazione di classe raccolta.</p>
-        ) : (
-          <>
-            {votiClasse.length > 0 && (
-              <ul className="flex flex-wrap gap-2">
-                {votiClasse.map((c) => (
-                  <li key={c.id} className={`${card} flex items-center gap-2 px-3 py-1.5 text-sm text-ink`}>
-                    <span className="text-muted">{c.step} ·</span> {c.label}
-                    <span className="rounded-md bg-accent px-1.5 text-xs font-bold text-[#1A1A1A]">
-                      {c.valore}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {noteVocali.length > 0 && (
-              <ul className="mt-3 space-y-1">
-                {noteVocali.map((a) => (
-                  <li key={a.id} className={`${card} px-3 py-2 text-sm text-ink`}>
-                    🎤 {a.contenuto}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        )}
-      </section>
-
-      {/* Note per alunno */}
-      <section className="mt-8 print-break">
-        <h2 className="mb-2 font-head text-lg font-bold text-ink">Note per alunno</h2>
-        {perAlunno.length === 0 ? (
-          <p className="text-sm text-muted">Nessuna nota sui singoli alunni.</p>
-        ) : (
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {perAlunno.map(({ alunno, note }) => (
-              <li key={alunno.id} className={`${card} p-3`}>
-                <p className="font-head font-bold text-ink">{alunno.nome}</p>
-                <ul className="mt-1 space-y-1.5">
-                  {note.map((a) => (
-                    <li key={a.id} className="text-sm text-ink">
-                      <span className="font-semibold text-fai-ink">{nomeStep(a.stepId)}:</span>{" "}
-                      {a.tipo === "testo" ? (
-                        a.contenuto
-                      ) : (
-                        <>
-                          {nomeOsservabile(a.osservabileId)}{" "}
-                          <span className="rounded bg-accent px-1.5 text-xs font-bold text-[#1A1A1A]">
-                            {a.valore}
-                          </span>
-                        </>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
         )}
       </section>
 

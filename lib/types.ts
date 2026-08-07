@@ -4,7 +4,8 @@
 // direttamente: passano sempre per lib/repository.ts.
 // ============================================================================
 
-export type Livello = 1 | 2 | 3 | 4 | 5;
+export type Livello = 1 | 2 | 3 | 4 | 5; // (legacy) usato solo da Osservabile.livello nei dati
+export type Voto = "A" | "B" | "C" | "D" | "E"; // scala valutazione competenze: A alto … E basso
 export type Elasticita = "essenziale" | "comprimibile" | "tagliabile";
 
 // ---------------------------------------------------------------------------
@@ -14,26 +15,34 @@ export type Attivita = {
   id: string;
   titolo: string;
   descrizione?: string; // descrizione breve (~160 caratteri) mostrata sotto il titolo nella card
+  obiettivo?: string; // obiettivo dell'attività, mostrato a fianco alla descrizione (riquadro giallo)
   materia: string;
   metodologia: string; // gamification | digital storytelling | PBL | ...
   durataTotaleMin: number; // durata pianificata, es. 100
   immagine?: string; // hero banner contestuale (path in /public), mostrato nella card
   voto?: number; // valutazione media del kit su 10 (fittizia per ora) — badge sulla card
+  creatore?: string; // autore della lezione; se assente → CREATORE_DEFAULT (vedi lib/creatore.ts)
+  presentazione?: string; // slide teoriche pronte (path in /public), scaricabili dalla card materiali
   // --- scheda di presentazione (mostrata nella card) ---
   ordineScuola?: string; // es. "Secondaria II grado"
   competenzeTarget?: string; // es. "Comprensione del testo, rielaborazione creativa"
-  tecnologiaRichiesta?: string; // es. "Proiettore o LIM, nessun account"
-  possibileUdaCon?: string; // spunti per una UDA interdisciplinare, es. "Arte e Storia"
+  tecnologiaRichiesta?: string; // (legacy) non più mostrato: i materiali coprono questa info
+  possibileUdaCon?: string; // (legacy) stringa "Arte e Storia" delle attività seed
+  uda?: UdaMateria[]; // UDA interdisciplinare strutturata: materia + come integrarla
   materialiNecessari: Materiale[];
   step: Step[];
   griglia: Griglia;
 };
 
+// Materia collegabile per una UDA interdisciplinare + come integrarla in questa attività.
+export type UdaMateria = { materia: string; come: string };
+
 export type Materiale = {
   id: string;
   descrizione: string; // "Foglio A3 per ogni gruppo"
   tipo: "fisico" | "digitale" | "tecnico";
-  link?: string; // link da aprire, se digitale
+  link?: string; // link esterno da aprire (es. account Canva)
+  download?: string; // asset digitale già fornito dal creatore (path in /public) → bottone "Scarica"
   critico: boolean; // se manca, l'attività non parte
 };
 
@@ -81,11 +90,12 @@ export type Griglia = {
   criteri: Criterio[];
 };
 
+// Un "criterio" della griglia è una competenza (per le attività GAP: una competenza PECUP).
 export type Criterio = {
   id: string;
-  nome: string; // es. "Collaborazione nel gruppo"
-  competenzaMinisteriale?: string;
-  descrittori: { livello: Livello; testo: string }[];
+  nome: string; // etichetta breve per la UI, es. "Comunicazione visiva"
+  competenzaMinisteriale?: string; // testo integrale della competenza PECUP
+  descrittori?: { voto: Voto; testo: string }[]; // opzionale: descrittori per livello A–E
 };
 
 // ---------------------------------------------------------------------------
@@ -93,6 +103,9 @@ export type Criterio = {
 // ---------------------------------------------------------------------------
 export type Alunno = { id: string; nome: string };
 export type Classe = { id: string; nome: string; alunni: Alunno[] };
+
+// Gruppi di lavoro per un'attività che li richiede (creati in fase di avvio).
+export type Gruppo = { id: string; nome: string; alunniIds: string[] };
 
 // ---------------------------------------------------------------------------
 // SESSIONE (stato di una lezione realmente svolta)
@@ -103,6 +116,7 @@ export type Sessione = {
   id: string;
   attivitaId: string;
   classeId?: string;
+  gruppi?: Gruppo[]; // gruppi di lavoro, se l'attività li richiede
   avviataAlle: number; // timestamp di ingresso in modalità Conduci — è il T0 del cronometro totale
   stepCorrente: number; // indice 0-based
   tempiReali: TempoReale[];
@@ -110,7 +124,7 @@ export type Sessione = {
   stato: StatoSessione;
   durateEffettive?: Record<string, number>; // override durata step (min) dopo un suggerimento di deriva
   materialiSpuntati?: string[]; // checklist Prepara persistente
-  valutazioneOverride?: Record<string, Record<string, Livello>>; // [alunnoId][criterioId] = livello corretto a mano
+  valutazioneOverride?: Record<string, Record<string, Voto>>; // [alunnoId][criterioId] = voto A–E corretto a mano
   feedbackInviato?: boolean; // il docente ha inviato i tempi reali all'autore
   pausaDa?: number; // timestamp REALE di inizio pausa (undefined = timer in marcia)
   msInPausa?: number; // millisecondi totali già trascorsi in pausa (accumulati)
@@ -123,9 +137,9 @@ export type Annotazione = {
   stepId: string;
   timestamp: number;
   tipo: "valutazione" | "vocale" | "testo";
-  osservabileId?: string; // caratteristica valutata (per tipo 'valutazione')
+  osservabileId?: string; // id della competenza (criterio) valutata (per tipo 'valutazione')
   alunnoId?: string; // se presente → riguarda il singolo; assente → la classe
-  valore?: Livello; // punteggio 1..5 (per tipo 'valutazione')
+  valore?: Voto; // voto A–E (per tipo 'valutazione')
   contenuto?: string; // trascrizione o testo libero
 };
 
@@ -158,12 +172,12 @@ export type CronometroTotale = {
 export type CellaValutazione = {
   alunnoId: string;
   criterioId: string;
-  livelloSuggerito: Livello | null; // null = MAI osservato → cella vuota, nessun default
+  livelloSuggerito: Voto | null; // voto A–E suggerito; null = MAI osservato → cella vuota, nessun default
   numOsservazioni: number;
 };
 
 export type RiepilogoCriterioClasse = {
   criterioId: string;
-  livelloMedio: Livello | null;
+  livelloMedio: Voto | null; // voto A–E medio di classe; null se non osservato
   numOsservazioni: number;
 };

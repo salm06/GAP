@@ -4,7 +4,7 @@
 // stampa dedicati — nessuna dipendenza pesante, funziona offline.
 // ============================================================================
 
-import type { Attivita, CellaValutazione, Classe, Sessione } from "./types";
+import type { Attivita, CellaValutazione, Classe, Sessione, Voto } from "./types";
 import { durataEffettivaStep } from "./tempo";
 
 function scaricaFile(nome: string, contenuto: string, mime: string) {
@@ -29,7 +29,7 @@ export function esportaValutazioneCSV(
   attivita: Attivita,
   classe: Classe,
   celle: CellaValutazione[],
-  override: Record<string, Record<string, number>> = {}
+  override: Record<string, Record<string, Voto>> = {}
 ) {
   const criteri = attivita.griglia.criteri;
   const intestazione = ["Alunno", ...criteri.map((c) => c.nome)];

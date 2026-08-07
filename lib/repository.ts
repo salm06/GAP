@@ -10,9 +10,11 @@ import { getDb } from "./db";
 import { seedSeNecessario } from "./seed";
 
 export interface Repository {
-  // contenuto (sola lettura per il player)
+  // contenuto
   listAttivita(): Promise<Attivita[]>;
   getAttivita(id: string): Promise<Attivita | null>;
+  saveAttivita(a: Attivita): Promise<void>; // crea/aggiorna un'attività (creazione guidata)
+  eliminaAttivita(id: string): Promise<void>; // elimina un'attività creata + le sue sessioni
 
   // classi
   listClassi(): Promise<Classe[]>;
@@ -37,6 +39,11 @@ export interface Repository {
 
 function nuovoId(prefix: string): string {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+/** Id per una nuova attività creata dal docente. */
+export function nuovoIdAttivita(): string {
+  return nuovoId("att");
 }
 
 /**
@@ -79,6 +86,19 @@ class LocalRepository implements Repository {
   async getAttivita(id: string): Promise<Attivita | null> {
     await this.ensure();
     return (await getDb().attivita.get(id)) ?? null;
+  }
+
+  async saveAttivita(a: Attivita): Promise<void> {
+    await this.ensure();
+    await getDb().attivita.put(a);
+  }
+
+  async eliminaAttivita(id: string): Promise<void> {
+    await this.ensure();
+    const db = getDb();
+    const sessioni = await db.sessioni.where("attivitaId").equals(id).toArray();
+    await Promise.all(sessioni.map((s) => db.sessioni.delete(s.id)));
+    await db.attivita.delete(id);
   }
 
   async listClassi(): Promise<Classe[]> {
